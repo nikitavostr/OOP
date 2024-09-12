@@ -66,9 +66,9 @@ public class Heapsort {
             for (int j = 0; j < i; j++) {
                 arr[j] = rd.nextInt();
             }
-            long timeBeforeRun = System.currentTimeMillis();
+            long time = System.currentTimeMillis();
             heapSort(arr, i);
-            System.out.printf("size of array: %d    time: %d\n", i, System.currentTimeMillis() - timeBeforeRun);
+            System.out.printf("size of array: %d time: %d\n", i, System.currentTimeMillis() - time);
         }*/
     }
 }
