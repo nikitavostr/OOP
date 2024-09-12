@@ -60,7 +60,7 @@ public class Heapsort {
      * testing complexity.
      */
     public static void main(String[] args) {
-        for (int i = 1000000; i <= 7000000; i += 1000000) {
+        /*for (int i = 1000000; i <= 7000000; i += 1000000) {
             int[] arr = new int[i];
             Random rd = new Random();
             for (int j = 0; j < i; j++) {
@@ -69,6 +69,6 @@ public class Heapsort {
             long t = System.currentTimeMillis();
             heapSort(arr, i);
             System.out.printf("size of array: %d    time: %d\n", i, System.currentTimeMillis() - t);
-        }
+        }*/
     }
 }
