@@ -3,7 +3,7 @@ package ru.nsu.vostrikov;
 import java.util.Random;
 
 /**
- * heapsort algorithm
+ * heapsort algorithm.
  *
  * @author n.vostrikov
  */
@@ -38,7 +38,7 @@ public class Heapsort {
     }
 
     /**
-     * this is sorting function
+     * this is sorting function.
      *
      * @param arr - array
      * @param n   - size of array
@@ -57,7 +57,7 @@ public class Heapsort {
     }
 
     /**
-     * testing complexity
+     * testing complexity.
      */
     public static void main(String[] args) {
         for (int i = 1000000; i <= 7000000; i += 1000000) {
