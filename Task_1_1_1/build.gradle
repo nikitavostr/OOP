@@ -19,8 +19,8 @@ test {
     useJUnitPlatform()
 }
 
-jacocoTestReport {
-    reports {
-        xml.required = true
+jacocoTestReport{
+    reports{
+        xml.required = true;
     }
 }
