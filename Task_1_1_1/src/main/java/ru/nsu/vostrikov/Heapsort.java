@@ -13,27 +13,27 @@ public class Heapsort {
      * this function build a heap.
      *
      * @param arr - array
-     * @param n   - size of array
+     * @param len - length of array
      * @param i   - index of current element
      */
 
-    public static void buildHeap(int[] arr, int n, int i) {
-        int dad = i;
+    public static void buildHeap(int[] arr, int len, int i) {
+        int current = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
 
-        if (left < n && arr[left] > arr[dad]) {
-            dad = left; // if left child bigger than dad child becomes dad
+        if (left < len && arr[left] > arr[current]) {
+            current = left; // if left child bigger than dad child becomes dad
         }
-        if (right < n && arr[right] > arr[dad]) {
-            dad = right; // analogically
+        if (right < len && arr[right] > arr[current]) {
+            current = right; // analogically
         }
-        if (dad != i) {
+        if (current != i) {
             int temp = arr[i];
-            arr[i] = arr[dad];
-            arr[dad] = temp; // if child outgrew his dad swap them
+            arr[i] = arr[current];
+            arr[current] = temp; // if child outgrew his dad swap them
 
-            buildHeap(arr, n, dad);
+            buildHeap(arr, len, current);
         }
     }
 
@@ -41,14 +41,14 @@ public class Heapsort {
      * this is sorting function.
      *
      * @param arr - array
-     * @param n   - size of array
      */
 
-    public static void heapSort(int[] arr, int n) {
-        for (int i = n / 2 - 1; i >= 0; i--) {
-            buildHeap(arr, n, i); // call a build_heap function for build max heap
+    public static void heapSort(int[] arr) {
+        int len = arr.length;
+        for (int i = len / 2 - 1; i >= 0; i--) {
+            buildHeap(arr, len, i); // call a build_heap function for build max heap
         }
-        for (int i = n - 1; i > 0; i--) {
+        for (int i = len - 1; i > 0; i--) {
             int temp = arr[0];
             arr[0] = arr[i];
             arr[i] = temp; // for each iteration we move max element of the heap to the of the array
@@ -66,9 +66,9 @@ public class Heapsort {
             for (int j = 0; j < i; j++) {
                 arr[j] = rd.nextInt();
             }
-            long t = System.currentTimeMillis();
+            long timeBeforeRun = System.currentTimeMillis();
             heapSort(arr, i);
-            System.out.printf("size of array: %d    time: %d\n", i, System.currentTimeMillis() - t);
+            System.out.printf("size of array: %d    time: %d\n", i, System.currentTimeMillis() - timeBeforeRun);
         }*/
     }
 }
