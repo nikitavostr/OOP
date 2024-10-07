@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MulTest {
     @Test
-    void testToString(){
+    void testToString() {
         Mul mul = new Mul(new Number(9), new Number(7));
         assertEquals("(9*7)", mul.toString());
     }
 
     @Test
-    void testDerivative(){
+    void testDerivative() {
         Variable var = new Variable("x");
         Mul mul = new Mul(new Mul(var, var), new Number(5));
         assertEquals("((((1*x)+(x*1))*5)+((x*x)*0))",
@@ -22,7 +22,7 @@ class MulTest {
     }
 
     @Test
-    void testMulByZero(){
+    void testMulByZero() {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("x", 0.0);
         Mul mul = new Mul(new Variable("x"), new Number(7));
@@ -30,7 +30,7 @@ class MulTest {
     }
 
     @Test
-    void testCalculateDerivative(){
+    void testCalculateDerivative() {
         Variable var = new Variable("x");
         Expression mul = new Mul(new Mul(var, var), new Number(5));
         Expression der = mul.derivative("x");
@@ -38,7 +38,7 @@ class MulTest {
     }
 
     @Test
-    void testSimpleCase(){
+    void testSimpleCase() {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("x", 12.0);
         dict.put("y", -7.0);

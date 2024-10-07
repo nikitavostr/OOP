@@ -11,7 +11,8 @@ class Add extends Expression {
 
     /**
      * consturctor
-     * @param first - first exp
+     *
+     * @param first  - first exp
      * @param second - second exp
      */
     public Add(Expression first, Expression second) {
@@ -29,6 +30,7 @@ class Add extends Expression {
 
     /**
      * find derivative
+     *
      * @param variable - variable of derivative
      */
     public Expression derivative(String variable) {
@@ -37,6 +39,7 @@ class Add extends Expression {
 
     /**
      * calculate add
+     *
      * @param dictVars - dict of variables
      */
     public Double calculate(HashMap<String, Double> dictVars) {

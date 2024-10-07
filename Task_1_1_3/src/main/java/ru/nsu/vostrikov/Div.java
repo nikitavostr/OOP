@@ -27,6 +27,7 @@ class Div extends Expression {
 
     /**
      * find derivative
+     *
      * @param variable - variable of derivative
      */
     public Expression derivative(String variable) {
@@ -35,6 +36,7 @@ class Div extends Expression {
 
     /**
      * calculate division
+     *
      * @param dictVars - dict of variables
      */
     public Double calculate(HashMap<String, Double> dictVars) {

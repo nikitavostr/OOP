@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class VariableTest {
     @Test
-    void testToString(){
+    void testToString() {
         Variable var = new Variable("xxxxx");
         assertEquals("xxxxx", var.toString());
     }
 
     @Test
-    void testDerivative(){
+    void testDerivative() {
         Variable x = new Variable("x");
         Variable y = new Variable("y");
         assertEquals("1", x.derivative("x").toString());
@@ -24,7 +24,7 @@ class VariableTest {
     }
 
     @Test
-    void testCalculate(){
+    void testCalculate() {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("x", 56.0);
         dict.put("y", 7.0);

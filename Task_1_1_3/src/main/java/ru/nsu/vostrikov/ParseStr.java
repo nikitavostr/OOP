@@ -7,7 +7,7 @@ class ParseStr {
     /**
      * delete spaces and call parser function
      */
-    public Expression parseStr(String expression){
+    public Expression parseStr(String expression) {
         expression = expression.replace(" ", "");
         return parser(expression);
     }
@@ -21,25 +21,22 @@ class ParseStr {
             char currentChar = expression.charAt(i);
             if (currentChar == ')') bracketCount--;
             if (currentChar == '(') bracketCount++;
-            if (bracketCount == 0){
+            if (bracketCount == 0) {
                 {
-                    switch(currentChar){
-                        case '+' -> {
-                            return new Add(parseStr(expression.substring(0, i)),
-                                    parser(expression.substring(i + 1)));
-                        }
-                        case '-' -> {
-                            return new Sub(parseStr(expression.substring(0, i)),
-                                    parser(expression.substring(i + 1)));
-                        }
-                        case '*' -> {
-                            return new Mul(parser(expression.substring(0, i)),
-                                    parser(expression.substring(i + 1)));
-                        }
-                        case '/' -> {
-                            return new Div(parseStr(expression.substring(0, i)),
-                                    parser(expression.substring(i + 1)));
-                        }
+                    switch (currentChar) {
+                        case '+':
+                            return new Add(parseStr(expression.substring(0, i)), parser(expression.substring(i + 1)));
+                        case '-':
+                            return new Sub(parseStr(expression.substring(0, i)), parser(expression.substring(i + 1)));
+
+                        case '*':
+                            return new Mul(parser(expression.substring(0, i)), parser(expression.substring(i + 1)));
+
+                        case '/':
+                            return new Div(parseStr(expression.substring(0, i)), parser(expression.substring(i + 1)));
+
+                        default:
+                            break;
                     }
                 }
             }

@@ -1,7 +1,9 @@
 package ru.nsu.vostrikov;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.HashMap;
 
 class AddTest {
@@ -25,7 +27,7 @@ class AddTest {
     }
 
     @Test
-    void testEvaluate(){
+    void testEvaluate() {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("x", 6.0);
         Expression left = new Variable("x");
