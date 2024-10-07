@@ -3,26 +3,26 @@ package ru.nsu.vostrikov;
 import java.util.HashMap;
 
 /**
- * Base class
+ * Base class.
  */
 abstract class Expression {
 
     /**
-     * output
+     * output.
      */
     public void print() {
         System.out.println(this);
     }
 
     /**
-     * eval with variable
+     * eval with variable.
      */
     public double eval(String string) {
         return calculate(parseVariables(string));
     }
 
     /**
-     * parse
+     * parse.
      */
     private HashMap<String, Double> parseVariables(String input) {
         HashMap<String, Double> variables = new HashMap<>();
@@ -35,12 +35,12 @@ abstract class Expression {
     }
 
     /**
-     * calculate with dict of variables
+     * calculate with dict of variables.
      */
     protected abstract Double calculate(HashMap<String, Double> dictVars);
 
     /**
-     * derivative
+     * derivative.
      */
     public abstract Expression derivative(String variable);
 }

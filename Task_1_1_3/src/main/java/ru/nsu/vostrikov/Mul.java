@@ -7,7 +7,7 @@ class Mul extends Expression {
     private final Expression second;
 
     /**
-     * constructor
+     * constructor.
      */
     public Mul(Expression first, Expression second) {
         this.first = first;
@@ -15,7 +15,7 @@ class Mul extends Expression {
     }
 
     /**
-     * convert to string
+     * convert to string.
      */
     @Override
     public String toString() {
@@ -23,7 +23,7 @@ class Mul extends Expression {
     }
 
     /**
-     * find derivative
+     * find derivative.
      */
     public Expression derivative(String variable) {
         return new Add(new Mul(first.derivative(variable), second),
@@ -31,7 +31,7 @@ class Mul extends Expression {
     }
 
     /**
-     * calculate multiplication
+     * calculate multiplication.
      */
     public Double calculate(HashMap<String, Double> dictVars) {
         return first.calculate(dictVars) * second.calculate(dictVars);

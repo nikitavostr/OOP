@@ -1,11 +1,11 @@
 package ru.nsu.vostrikov;
 
 /**
- * Parser
+ * Parser.
  */
 class ParseStr {
     /**
-     * delete spaces and call parser function
+     * delete spaces and call parser function.
      */
     public Expression parseStr(String expression) {
         expression = expression.replace(" ", "");
@@ -13,7 +13,7 @@ class ParseStr {
     }
 
     /**
-     * recursive parser
+     * recursive parser.
      */
     private Expression parser(String expression) {
         int bracketCount = 0;

@@ -3,14 +3,14 @@ package ru.nsu.vostrikov;
 import java.util.HashMap;
 
 /**
- * Div class
+ * Div class.
  */
 class Div extends Expression {
     private final Expression numerator;
     private final Expression denominator;
 
     /**
-     * constructor
+     * constructor.
      */
     public Div(Expression numerator, Expression denominator) {
         this.numerator = numerator;
@@ -18,7 +18,7 @@ class Div extends Expression {
     }
 
     /**
-     * convert to string
+     * convert to string.
      */
     @Override
     public String toString() {
@@ -26,18 +26,18 @@ class Div extends Expression {
     }
 
     /**
-     * find derivative
+     * find derivative.
      *
-     * @param variable - variable of derivative
+     * @param variable - variable of derivative.
      */
     public Expression derivative(String variable) {
         return new Div(new Sub(new Mul(numerator.derivative(variable), denominator), new Mul(numerator, denominator.derivative(variable))), new Mul(denominator, denominator));
     }
 
     /**
-     * calculate division
+     * calculate division.
      *
-     * @param dictVars - dict of variables
+     * @param dictVars - dict of variables.
      */
     public Double calculate(HashMap<String, Double> dictVars) {
         return numerator.calculate(dictVars) / denominator.calculate(dictVars);

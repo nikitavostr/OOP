@@ -3,17 +3,17 @@ package ru.nsu.vostrikov;
 import java.util.HashMap;
 
 /**
- * Addition class
+ * Addition class.
  */
 class Add extends Expression {
     private final Expression first;
     private final Expression second;
 
     /**
-     * consturctor
+     * constructor.
      *
-     * @param first  - first exp
-     * @param second - second exp
+     * @param first  - first exp.
+     * @param second - second exp.
      */
     public Add(Expression first, Expression second) {
         this.first = first;
@@ -21,7 +21,7 @@ class Add extends Expression {
     }
 
     /**
-     * convert to string
+     * convert to string.
      */
     @Override
     public String toString() {
@@ -29,18 +29,18 @@ class Add extends Expression {
     }
 
     /**
-     * find derivative
+     * find derivative.
      *
-     * @param variable - variable of derivative
+     * @param variable - variable of derivative.
      */
     public Expression derivative(String variable) {
         return new Add(first.derivative(variable), second.derivative(variable));
     }
 
     /**
-     * calculate add
+     * calculate add.
      *
-     * @param dictVars - dict of variables
+     * @param dictVars - dict of variables.
      */
     public Double calculate(HashMap<String, Double> dictVars) {
         return first.calculate(dictVars) + second.calculate(dictVars);
