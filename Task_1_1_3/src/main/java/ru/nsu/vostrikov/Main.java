@@ -1,7 +1,13 @@
 package ru.nsu.vostrikov;
 
+/**
+ * the Main class.
+ */
 public class Main {
 
+    /**
+     * the main function.
+     */
     public static void main(String[] args) {
         Variable var1 = new Variable("xxxx");
         Variable var2 = new Variable("y");

@@ -31,7 +31,13 @@ class Div extends Expression {
      * @param variable - variable of derivative.
      */
     public Expression derivative(String variable) {
-        return new Div(new Sub(new Mul(numerator.derivative(variable), denominator), new Mul(numerator, denominator.derivative(variable))), new Mul(denominator, denominator));
+        return new Div(new Sub(
+                new Mul(numerator.derivative(variable), denominator),
+                new Mul(numerator, denominator.derivative(variable))
+        ),
+                new Mul(denominator, denominator)
+        );
+
     }
 
     /**
