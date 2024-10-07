@@ -20,7 +20,7 @@ class DivTest {
     }
 
     @Test
-    void testEvaluate() {
+    void testEvaluate() throws Exception {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("xx", 126.0);
         dict.put("y", 9.0);
@@ -30,7 +30,7 @@ class DivTest {
     }
 
     @Test
-    void testDivisionByZero() {
+    void testDivisionByZero() throws Exception {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("xx", 126.0);
         dict.put("y", 0.0);
@@ -40,7 +40,7 @@ class DivTest {
     }
 
     @Test
-    void testSimpleCase() {
+    void testSimpleCase() throws Exception {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("x", -228.0);
         dict.put("y", 4.0);

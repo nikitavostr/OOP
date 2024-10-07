@@ -30,6 +30,7 @@ class Div extends Expression {
      *
      * @param variable - variable of derivative.
      */
+    @Override
     public Expression derivative(String variable) {
         return new Div(new Sub(
                 new Mul(numerator.derivative(variable), denominator),
@@ -45,7 +46,8 @@ class Div extends Expression {
      *
      * @param dictVars - dict of variables.
      */
-    public Double calculate(HashMap<String, Double> dictVars) {
+    @Override
+    public Double calculate(HashMap<String, Double> dictVars) throws Exception {
         return numerator.calculate(dictVars) / denominator.calculate(dictVars);
     }
 }

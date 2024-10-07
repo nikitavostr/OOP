@@ -25,6 +25,7 @@ class Mul extends Expression {
     /**
      * find derivative.
      */
+    @Override
     public Expression derivative(String variable) {
         return new Add(new Mul(first.derivative(variable), second),
                 new Mul(first, second.derivative(variable)));
@@ -33,7 +34,8 @@ class Mul extends Expression {
     /**
      * calculate multiplication.
      */
-    public Double calculate(HashMap<String, Double> dictVars) {
+    @Override
+    public Double calculate(HashMap<String, Double> dictVars) throws Exception {
         return first.calculate(dictVars) * second.calculate(dictVars);
     }
 }

@@ -33,6 +33,7 @@ class Add extends Expression {
      *
      * @param variable - variable of derivative.
      */
+    @Override
     public Expression derivative(String variable) {
         return new Add(first.derivative(variable), second.derivative(variable));
     }
@@ -42,7 +43,8 @@ class Add extends Expression {
      *
      * @param dictVars - dict of variables.
      */
-    public Double calculate(HashMap<String, Double> dictVars) {
+    @Override
+    public Double calculate(HashMap<String, Double> dictVars) throws Exception {
         return first.calculate(dictVars) + second.calculate(dictVars);
     }
 }

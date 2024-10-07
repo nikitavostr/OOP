@@ -18,6 +18,7 @@ class Number extends Expression {
     /**
      * convert to string.
      */
+    @Override
     public String toString() {
         return Integer.toString(value);
     }
@@ -25,6 +26,7 @@ class Number extends Expression {
     /**
      * calculate variables.
      */
+    @Override
     public Double calculate(HashMap<String, Double> dictVars) {
         return (double) value;
     }
@@ -32,6 +34,7 @@ class Number extends Expression {
     /**
      * find derivative.
      */
+    @Override
     public Expression derivative(String variable) {
         return new Number(0);
     }

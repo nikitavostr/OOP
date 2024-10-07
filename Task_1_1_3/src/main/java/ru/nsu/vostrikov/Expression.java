@@ -17,7 +17,7 @@ abstract class Expression {
     /**
      * eval with variable.
      */
-    public double eval(String string) {
+    public double eval(String string) throws Exception {
         return calculate(parseVariables(string));
     }
 
@@ -37,7 +37,7 @@ abstract class Expression {
     /**
      * calculate with dict of variables.
      */
-    protected abstract Double calculate(HashMap<String, Double> dictVars);
+    protected abstract Double calculate(HashMap<String, Double> dictVars) throws Exception;
 
     /**
      * derivative.

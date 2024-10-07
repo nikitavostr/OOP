@@ -23,7 +23,7 @@ class VariableTest {
     }
 
     @Test
-    void testCalculate() {
+    void testCalculate() throws Exception {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("x", 56.0);
         dict.put("y", 7.0);
@@ -31,5 +31,16 @@ class VariableTest {
         Variable y = new Variable("y");
         assertEquals(56.0, x.calculate(dict));
         assertEquals(7.0, y.calculate(dict));
+    }
+
+    @Test
+    void testNoVariable() throws Exception {
+        Variable var = new Variable("x");
+        Exception myException = new Exception("x have no value");
+        try {
+            var.eval("y=5");
+        } catch (Exception e) {
+            assertEquals(e.getMessage(), myException.getMessage());
+        }
     }
 }

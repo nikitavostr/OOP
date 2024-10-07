@@ -21,7 +21,7 @@ class MulTest {
     }
 
     @Test
-    void testMulByZero() {
+    void testMulByZero() throws Exception {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("x", 0.0);
         Mul mul = new Mul(new Variable("x"), new Number(7));
@@ -29,7 +29,7 @@ class MulTest {
     }
 
     @Test
-    void testCalculateDerivative() {
+    void testCalculateDerivative() throws Exception {
         Variable var = new Variable("x");
         Expression mul = new Mul(new Mul(var, var), new Number(5));
         Expression der = mul.derivative("x");
@@ -37,7 +37,7 @@ class MulTest {
     }
 
     @Test
-    void testSimpleCase() {
+    void testSimpleCase() throws Exception {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("x", 12.0);
         dict.put("y", -7.0);

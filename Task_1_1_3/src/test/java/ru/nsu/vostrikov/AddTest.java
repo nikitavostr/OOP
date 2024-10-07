@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class AddTest {
     @Test
-    void testCalculate() {
+    void testCalculate() throws Exception {
         Expression expr = new Add(new Number(3), new Number(5));
         assertEquals(8.0, expr.calculate(new HashMap<>()));
     }
@@ -26,7 +26,7 @@ class AddTest {
     }
 
     @Test
-    void testEvaluate() {
+    void testEvaluate() throws Exception {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("x", 6.0);
         Expression left = new Variable("x");

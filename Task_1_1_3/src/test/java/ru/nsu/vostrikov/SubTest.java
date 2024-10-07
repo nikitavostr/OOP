@@ -13,7 +13,7 @@ class SubTest {
     }
 
     @Test
-    void testCalculate() {
+    void testCalculate() throws Exception {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("x", 34.0);
         Sub sub = new Sub(new Number(12), new Variable("x"));
@@ -28,7 +28,7 @@ class SubTest {
     }
 
     @Test
-    void testZeroCase() {
+    void testZeroCase() throws Exception {
         HashMap<String, Double> dict = new HashMap<>();
         dict.put("x", 0.0);
         Sub sub = new Sub(new Variable("x"), new Number(12));

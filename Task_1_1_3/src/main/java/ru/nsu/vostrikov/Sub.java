@@ -28,13 +28,15 @@ class Sub extends Expression {
     /**
      * calculate subtraction.
      */
-    public Double calculate(HashMap<String, Double> dictVars) {
+    @Override
+    public Double calculate(HashMap<String, Double> dictVars) throws Exception {
         return first.calculate(dictVars) - second.calculate(dictVars);
     }
 
     /**
      * find derivative.
      */
+    @Override
     public Expression derivative(String variable) {
         return new Sub(first.derivative(variable), second.derivative(variable));
     }
