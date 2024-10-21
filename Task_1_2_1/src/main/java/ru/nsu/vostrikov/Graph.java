@@ -19,11 +19,9 @@ interface Graph<T> {
 
     List<Vertex<T>> getNeighbors(Vertex<T> vertex) throws IndexOutOfBoundsException;
 
-    int getVertexIdx(Vertex<T> vertex) throws IndexOutOfBoundsException;
-
     int getVertexCnt();
 
-    Vertex<T> getVertex(int vertexIdx);
+    List<Vertex<T>> getVertices();
 
     /**
      * Чтение файла.
@@ -64,8 +62,8 @@ interface Graph<T> {
                     }
                     else {
                         String[] arr = line.split(" ");
-                        Vertex<T> v1 = getVertex(Integer.parseInt(arr[0]));
-                        Vertex<T> v2 = getVertex(Integer.parseInt(arr[1]));
+                        Vertex<T> v1 = getVertices().get(Integer.parseInt(arr[0]));
+                        Vertex<T> v2 = getVertices().get(Integer.parseInt(arr[1]));
                         addEdge(new Edge<>(v1, v2));
                     }
                 }

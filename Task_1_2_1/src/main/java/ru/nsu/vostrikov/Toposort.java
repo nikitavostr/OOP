@@ -1,8 +1,8 @@
 package ru.nsu.vostrikov;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Класс топологической сортировки.
@@ -34,15 +34,15 @@ public class Toposort<T> {
      */
     private static <T> void dfs(int vert, Graph<T> graph, boolean[] visited, List<Vertex<T>> answer) {
         visited[vert] = true;
-        int cnt = graph.getNeighbors(graph.getVertex(vert)).size();
+        int cnt = graph.getNeighbors(graph.getVertices().get(vert)).size();
         Vertex<T> vertex;
         for(int i = 0; i < cnt; ++i) {
-            vertex = graph.getNeighbors(graph.getVertex(vert)).get(i);
-            int to = graph.getVertexIdx(vertex);
+            vertex = graph.getNeighbors(graph.getVertices().get(vert)).get(i);
+            int to = graph.getVertices().indexOf(vertex);
             if (!visited[to]) {
                 dfs(to, graph, visited, answer);
             }
         }
-        answer.add(graph.getVertex(vert));
+        answer.add(graph.getVertices().get(vert));
     }
 }

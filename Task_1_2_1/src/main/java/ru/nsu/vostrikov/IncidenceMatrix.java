@@ -1,7 +1,7 @@
 package ru.nsu.vostrikov;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Матрица инцидентности.
@@ -112,7 +112,6 @@ public class IncidenceMatrix<T> implements Graph<T> {
     /**
      * Индекс вершины.
      */
-    @Override
     public int getVertexIdx(Vertex<T> vertex) throws IndexOutOfBoundsException {
         int idx = vertices.indexOf(vertex);
         if (idx == -1){
@@ -132,12 +131,19 @@ public class IncidenceMatrix<T> implements Graph<T> {
     /**
      * Вершина по индексу.
      */
-    @Override
     public Vertex<T> getVertex(int vertexIdx) throws IndexOutOfBoundsException {
         Vertex<T> vertex = vertices.get(vertexIdx);
         if (vertex == null) {
             throw new IndexOutOfBoundsException("Vertex not found");
         }
         return vertex;
+    }
+
+    /**
+     * Все вершины.
+     */
+    @Override
+    public List<Vertex<T>> getVertices() {
+        return vertices;
     }
 }

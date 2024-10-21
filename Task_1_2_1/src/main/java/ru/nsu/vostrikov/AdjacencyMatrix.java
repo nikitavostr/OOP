@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Матрица смежности.
  */
-public class AdjacencyMatrix<T> implements Graph<T>{
+public class AdjacencyMatrix<T> implements Graph<T> {
 
     private final ArrayList<ArrayList<Integer>> adjMat;
     private final List<Vertex<T>> vertices;
@@ -22,7 +22,7 @@ public class AdjacencyMatrix<T> implements Graph<T>{
     }
 
     /**
-     * Добавление вершины
+     * Добавление вершины.
      */
     @Override
     public void addVertex(Vertex<T> vertex) {
@@ -42,7 +42,7 @@ public class AdjacencyMatrix<T> implements Graph<T>{
     }
 
     /**
-     * Удаление вершины
+     * Удаление вершины.
      */
     @Override
     public void deleteVertex(Vertex<T> vertex) {
@@ -98,7 +98,6 @@ public class AdjacencyMatrix<T> implements Graph<T>{
     /**
      * Индекс вершины.
      */
-    @Override
     public int getVertexIdx(Vertex<T> vertex) throws IndexOutOfBoundsException {
         int index = vertices.indexOf(vertex);
         if (index == -1) {
@@ -118,8 +117,15 @@ public class AdjacencyMatrix<T> implements Graph<T>{
     /**
      * Вершина по индексу.
      */
-    @Override
     public Vertex<T> getVertex(int vertexId) {
         return vertices.get(vertexId);
+    }
+
+    /**
+     * Все вершины.
+     */
+    @Override
+    public List<Vertex<T>> getVertices() {
+        return vertices;
     }
 }

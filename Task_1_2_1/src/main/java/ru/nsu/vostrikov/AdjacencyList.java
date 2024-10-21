@@ -1,9 +1,9 @@
 package ru.nsu.vostrikov;
 
-import java.util.Map;
-import java.util.List;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Список смежности.
@@ -54,7 +54,9 @@ public class AdjacencyList<T> implements Graph<T> {
     public void addEdge(Edge<T> edge) {
         Vertex<T> from = edge.getFrom();
         Vertex<T> to = edge.getTo();
-        if(adjList.get(from).contains(to)) return;
+        if (adjList.get(from).contains(to)) {
+            return;
+        }
         adjList.get(from).add(to);
     }
 
@@ -65,7 +67,9 @@ public class AdjacencyList<T> implements Graph<T> {
     public void deleteEdge(Edge<T> edge) {
         Vertex<T> from = edge.getFrom();
         Vertex<T> to = edge.getTo();
-        if(!adjList.get(from).contains(to)) return;
+        if (!adjList.get(from).contains(to)) {
+            return;
+        }
         adjList.get(from).remove(to);
     }
 
@@ -83,7 +87,7 @@ public class AdjacencyList<T> implements Graph<T> {
     /**
      * Индекс вершины.
      */
-    @Override
+
     public int getVertexIdx(Vertex<T> vertex) throws IndexOutOfBoundsException {
         int index = vertices.indexOf(vertex);
         if (index == -1) {
@@ -103,12 +107,19 @@ public class AdjacencyList<T> implements Graph<T> {
     /**
      * Вершина по индексу.
      */
-    @Override
     public Vertex<T> getVertex(int vertexIdx) throws IndexOutOfBoundsException {
         Vertex<T> vertex = vertices.get(vertexIdx);
         if (vertex != null) {
             return vertex;
         }
         throw new IndexOutOfBoundsException("Vertex not found");
+    }
+
+    /**
+     * Все вершины.
+     */
+    @Override
+    public List<Vertex<T>> getVertices() {
+        return vertices;
     }
 }

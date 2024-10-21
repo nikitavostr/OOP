@@ -24,11 +24,11 @@ public class GraphTest {
 
         graph.addVertex(v1);
         assertEquals(1, graph.getVertexCnt());
-        assertEquals(v1, graph.getVertex(0));
+        assertEquals(v1, graph.getVertices().get(0));
 
         graph.addVertex(v2);
         assertEquals(2, graph.getVertexCnt());
-        assertEquals(v2, graph.getVertex(1));
+        assertEquals(v2, graph.getVertices().get(1));
     }
 
     @ParameterizedTest
@@ -53,7 +53,7 @@ public class GraphTest {
 
         graph.deleteVertex(v1);
         assertEquals(1, graph.getVertexCnt());
-        assertEquals(v2, graph.getVertex(0));
+        assertEquals(v2, graph.getVertices().get(0));
     }
 
     @ParameterizedTest
@@ -128,37 +128,6 @@ public class GraphTest {
 
     @ParameterizedTest
     @ArgumentsSource(TestArgumentsProvider.class)
-    public void testGetVertexIdx(Graph<String> graph) {
-        Vertex<String> v1 = new Vertex<>("A");
-        Vertex<String> v2 = new Vertex<>("B");
-
-        graph.addVertex(v1);
-        graph.addVertex(v2);
-
-        assertEquals(0, graph.getVertexIdx(v1));
-        assertEquals(1, graph.getVertexIdx(v2));
-
-        Vertex<String> nonExistingVertex = new Vertex<>("C");
-        assertThrows(IndexOutOfBoundsException.class, () -> graph.getVertexIdx(nonExistingVertex));
-    }
-
-    @ParameterizedTest
-    @ArgumentsSource(TestArgumentsProvider.class)
-    public void testGetVertex(Graph<String> graph) {
-        Vertex<String> v1 = new Vertex<>("A");
-        Vertex<String> v2 = new Vertex<>("B");
-
-        graph.addVertex(v1);
-        graph.addVertex(v2);
-
-        assertEquals(v1, graph.getVertex(0));
-        assertEquals(v2, graph.getVertex(1));
-
-        assertThrows(IndexOutOfBoundsException.class, () -> graph.getVertex(2));
-    }
-
-    @ParameterizedTest
-    @ArgumentsSource(TestArgumentsProvider.class)
     public void testGetVertexCnt(Graph<String> graph) {
         assertEquals(0, graph.getVertexCnt());
 
@@ -179,15 +148,15 @@ public class GraphTest {
     void readFromFileTest(Graph<String> graph) throws FileNotFoundException {
         graph.readFile("graph.txt", "string");
         assertEquals(graph.getVertexCnt(), 4);
-        Vertex<String> v1 = graph.getVertex(0);
-        Vertex<String> v2 = graph.getVertex(1);
-        Vertex<String> v3 = graph.getVertex(2);
-        Vertex<String> v4 = graph.getVertex(3);
+        Vertex<String> v1 = graph.getVertices().get(0);
+        Vertex<String> v2 = graph.getVertices().get(1);
+        Vertex<String> v3 = graph.getVertices().get(2);
+        Vertex<String> v4 = graph.getVertices().get(3);
         assertTrue(graph.getNeighbors(v1).contains(v2));
         assertTrue(graph.getNeighbors(v1).contains(v3));
         Vertex<String> nonExistingVertex = new Vertex<>("E");
         assertThrows(IndexOutOfBoundsException.class, () -> graph.deleteVertex(nonExistingVertex));
-        assertEquals(graph.getVertex(0).getValue(), "A");
+        assertEquals(graph.getVertices().get(0).getValue(), "A");
     }
 
     static class TestArgumentsProvider implements ArgumentsProvider {
