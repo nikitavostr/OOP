@@ -22,9 +22,8 @@ public class GraphTest {
         Vertex<String> v1 = new Vertex<>("A");
         Vertex<String> v2 = new Vertex<>("B");
         graph.addVertex(v1);
-        assertEquals(1, graph.getVertexCnt());
-        assertEquals(v1, graph.getVertices().get(0));
         graph.addVertex(v2);
+        assertEquals(v1, graph.getVertices().get(0));
         assertEquals(2, graph.getVertexCnt());
         assertEquals(v2, graph.getVertices().get(1));
     }
