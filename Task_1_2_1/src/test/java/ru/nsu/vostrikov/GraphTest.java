@@ -14,8 +14,14 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
+/**
+ * Test class.
+ */
 public class GraphTest {
 
+    /**
+     * Test add vertex.
+     */
     @ParameterizedTest
     @ArgumentsSource(TestArgumentsProvider.class)
     public void testAddVertex(Graph<String> graph) {
@@ -28,6 +34,9 @@ public class GraphTest {
         assertEquals(v2, graph.getVertices().get(1));
     }
 
+    /**
+     * Test duplicate vertex.
+     */
     @ParameterizedTest
     @ArgumentsSource(TestArgumentsProvider.class)
     public void testAddDuplicateVertex(Graph<String> graph) {
@@ -37,6 +46,9 @@ public class GraphTest {
         assertEquals(1, graph.getVertexCnt());
     }
 
+    /**
+     * Test delete vertex.
+     */
     @ParameterizedTest
     @ArgumentsSource(TestArgumentsProvider.class)
     public void testDeleteVertex(Graph<String> graph) {
@@ -51,6 +63,9 @@ public class GraphTest {
         assertEquals(v2, graph.getVertices().get(0));
     }
 
+    /**
+     * Test delete non existing vertex.
+     */
     @ParameterizedTest
     @ArgumentsSource(TestArgumentsProvider.class)
     public void testDeleteNonExistingVertex(Graph<String> graph) {
@@ -60,6 +75,9 @@ public class GraphTest {
         assertThrows(IndexOutOfBoundsException.class, () -> graph.deleteVertex(nonExistingVertex));
     }
 
+    /**
+     * test add edge.
+     */
     @ParameterizedTest
     @ArgumentsSource(TestArgumentsProvider.class)
     public void testAddEdge(Graph<String> graph) {
@@ -75,6 +93,9 @@ public class GraphTest {
         assertFalse(neighborsOfB.contains(v1));
     }
 
+    /**
+     * test delete edge.
+     */
     @ParameterizedTest
     @ArgumentsSource(TestArgumentsProvider.class)
     public void testDeleteEdge(Graph<String> graph) {
@@ -89,6 +110,9 @@ public class GraphTest {
         assertFalse(graph.getNeighbors(v1).contains(v2));
     }
 
+    /**
+     * test get neighbors.
+     */
     @ParameterizedTest
     @ArgumentsSource(TestArgumentsProvider.class)
     public void testGetNeighbors(Graph<String> graph) {
@@ -109,6 +133,9 @@ public class GraphTest {
         assertEquals(0, neighborsOfB.size());
     }
 
+    /**
+     * test get vertex cnt.
+     */
     @ParameterizedTest
     @ArgumentsSource(TestArgumentsProvider.class)
     public void testGetVertexCnt(Graph<String> graph) {
@@ -122,6 +149,9 @@ public class GraphTest {
         assertEquals(1, graph.getVertexCnt());
     }
 
+    /**
+     * test read file.
+     */
     @ParameterizedTest
     @ArgumentsSource(TestArgumentsProvider.class)
     void readFromFileTest(Graph<String> graph) throws FileNotFoundException {
