@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="11f64bea-3f6e-468f-add4-b132dc44f0fc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/builded/ru/nsu/vostrikov/Heapsort.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/allclasses-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/allpackages-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/element-list" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/help-doc.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/index-all.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/legal/COPYRIGHT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/legal/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/legal/jquery.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/legal/jqueryUI.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/member-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/module-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/overview-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/package-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/resource-files/copy.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/resource-files/glass.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/resource-files/jquery-ui.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/resource-files/link.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/resource-files/stylesheet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/resource-files/x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/ru/nsu/vostrikov/Heapsort.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/ru/nsu/vostrikov/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/ru/nsu/vostrikov/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/script-files/jquery-3.6.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/script-files/jquery-ui.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/script-files/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/script-files/search-page.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/script-files/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/search.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/tag-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task_1_1_1/docs/type-search-index.js" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2mBEXAeKp5y8TtWet19cJJRVIAp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Task__1__1__1",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="11f64bea-3f6e-468f-add4-b132dc44f0fc" name="Changes" comment="" />
+      <created>1726541606022</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1726541606022</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -1,95 +1,114 @@
 package ru.nsu.vostrikov;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.ArrayList;
 
+/**
+ * Список смежности.
+ */
 public class AdjacencyList<T> implements Graph<T> {
 
-    private HashMap<Integer, List<Integer>> adjList;
-    private HashMap<Integer, T> vertexValues;
-    private HashMap<T, Integer> vertexIndices;
-    private int nextIdx = 0;
+    private List<Vertex<T>> vertices;
+    private Map<Vertex<T>, List<Vertex<T>>> adjList;
 
+    /**
+     * конструктор.
+     */
     public AdjacencyList() {
-        vertexValues = new HashMap<>();
+        vertices = new ArrayList<>();
         adjList = new HashMap<>();
-        vertexIndices = new HashMap<>();
     }
 
+    /**
+     * Добавление вершин.
+     */
     @Override
-    public void addVertex(T vertex) {
-        vertexValues.put(nextIdx, vertex);
-        vertexIndices.put(vertex, nextIdx);
-        adjList.put(nextIdx, new ArrayList<>());
-        nextIdx++;
+    public void addVertex(Vertex<T> vertex) {
+        if (adjList.containsKey(vertex)) {
+            return;
+        }
+
+        vertices.add(vertex);
+        adjList.put(vertex, new ArrayList<>());
     }
 
+    /**
+     * Удаление вершин.
+     */
     @Override
-    public void deleteVertex(T vertex) throws IndexOutOfBoundsException {
-        Integer vertexId = vertexIndices.get(vertex);
-        if (vertexId == null) {
-            throw new IndexOutOfBoundsException("Invalid vertex");
-        }
-        vertexValues.remove(vertexId);
-        vertexIndices.remove(vertex);
-        adjList.remove(vertexId);
-        for (List<Integer> neighbors : adjList.values()) {
-            neighbors.remove(vertexId);
+    public void deleteVertex(Vertex<T> vertex) {
+        int idx = getVertexIdx(vertex);
+        adjList.remove(vertex);
+        vertices.remove(vertex);
+        for (List<Vertex<T>> v : adjList.values()) {
+            v.remove(vertex);
         }
     }
 
+    /**
+     * Добавление ребер.
+     */
     @Override
-    public void addEdge(T from, T to) throws IndexOutOfBoundsException {
-        Integer fromId = vertexIndices.get(from);
-        Integer toId = vertexIndices.get(to);
-        if (fromId == null || toId == null) {
-            throw new IndexOutOfBoundsException("No such vertices");
-        }
-        adjList.get(fromId).add(toId);
+    public void addEdge(Edge<T> edge) {
+        Vertex<T> from = edge.getFrom();
+        Vertex<T> to = edge.getTo();
+        if(adjList.get(from).contains(to)) return;
+        adjList.get(from).add(to);
     }
 
+    /**
+     * Удаление ребер.
+     */
     @Override
-    public void deleteEdge(T from, T to) throws IndexOutOfBoundsException {
-        Integer fromId = vertexIndices.get(from);
-        Integer toId = vertexIndices.get(to);
-        if (fromId == null || toId == null) {
-            throw new IndexOutOfBoundsException("No such vertices");
-        }
-        adjList.get(fromId).remove(toId);
+    public void deleteEdge(Edge<T> edge) {
+        Vertex<T> from = edge.getFrom();
+        Vertex<T> to = edge.getTo();
+        if(!adjList.get(from).contains(to)) return;
+        adjList.get(from).remove(to);
     }
 
+    /**
+     * Список всех соседей вершины.
+     */
     @Override
-    public List<T> getNeighbors(T vertex) throws IndexOutOfBoundsException {
-        Integer vertexId = vertexIndices.get(vertex);
-        if (vertexId == null) {
-            throw new IndexOutOfBoundsException("Invalid vertex");
+    public List<Vertex<T>> getNeighbors(Vertex<T> vertex) throws IndexOutOfBoundsException {
+        if (!vertices.contains(vertex)) {
+            throw new IndexOutOfBoundsException("No such vertex");
         }
-        List<T> neighbors = new ArrayList<>();
-        for (Integer neighborId : adjList.get(vertexId)) {
-            neighbors.add(vertexValues.get(neighborId));
-        }
-        return neighbors;
+        return adjList.get(vertex);
     }
 
+    /**
+     * Индекс вершины.
+     */
     @Override
-    public int getVertexIdx(T vertex) throws IndexOutOfBoundsException {
-        Integer vertexId = vertexIndices.get(vertex);
-        if (vertexId == null) {
-            throw new IndexOutOfBoundsException("Invalid vertex");
+    public int getVertexIdx(Vertex<T> vertex) throws IndexOutOfBoundsException {
+        int index = vertices.indexOf(vertex);
+        if (index == -1) {
+            throw new IndexOutOfBoundsException("No such vertex");
         }
-        return vertexId;
+        return index;
     }
 
+    /**
+     * Количество вершин.
+     */
     @Override
     public int getVertexCnt() {
-        return vertexValues.size();
+        return vertices.size();
     }
 
+    /**
+     * Вершина по индексу.
+     */
     @Override
-    public T getVertex(int vertexIdx) {
-        return vertexValues.get(vertexIdx);
+    public Vertex<T> getVertex(int vertexIdx) throws IndexOutOfBoundsException {
+        Vertex<T> vertex = vertices.get(vertexIdx);
+        if (vertex != null) {
+            return vertex;
+        }
+        throw new IndexOutOfBoundsException("Vertex not found");
     }
 }
-

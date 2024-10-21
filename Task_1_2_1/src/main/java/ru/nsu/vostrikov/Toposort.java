@@ -1,40 +1,48 @@
 package ru.nsu.vostrikov;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
+import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 
+/**
+ * Класс топологической сортировки.
+ */
 public class Toposort<T> {
-    private boolean[] visited;
-    private Deque<Integer> stack;
 
-    public List<T> sort(Graph<T> graph) {
-        int verticesCnt = graph.getVertexCnt();
-        visited = new boolean[verticesCnt];
-        stack = new ArrayDeque<>();
-        for (int i = 0; i < visited.length; i++) {
+    /**
+     * Функция сортировки.
+     */
+    public static <T> List<Vertex<T>> toposort(Graph<T> graph) {
+        boolean[] visited = new boolean[graph.getVertexCnt()];
+        List<Vertex<T>> answer = new ArrayList<>();
+        int cnt = graph.getVertexCnt();
+        for (int i = 0; i < cnt; i++) {
+            visited[i] = false;
+        }
+        for (int i = 0; i < cnt; ++i) {
             if (!visited[i]) {
-                dfs(i, graph);
+                dfs(i, graph, visited, answer);
             }
         }
-        List<T> sortedList = new ArrayList<>();
-        while (!stack.isEmpty()) {
-            sortedList.add(graph.getVertex(stack.pop()));
-        }
-        return sortedList;
+
+        Collections.reverse(answer);
+        return answer;
     }
 
-    private void dfs(int vertexIdx, Graph<T> graph) {
-        if (visited[vertexIdx]) {
-            return;
+    /**
+     * Обход в глубину.
+     */
+    private static <T> void dfs(int vert, Graph<T> graph, boolean[] visited, List<Vertex<T>> answer) {
+        visited[vert] = true;
+        int cnt = graph.getNeighbors(graph.getVertex(vert)).size();
+        Vertex<T> vertex;
+        for(int i = 0; i < cnt; ++i) {
+            vertex = graph.getNeighbors(graph.getVertex(vert)).get(i);
+            int to = graph.getVertexIdx(vertex);
+            if (!visited[to]) {
+                dfs(to, graph, visited, answer);
+            }
         }
-        visited[vertexIdx] = true;
-        List<T> neighbors = graph.getNeighbors(graph.getVertex(vertexIdx));
-        for (T neighbor : neighbors) {
-            int neighborIdx = graph.getVertexIdx(neighbor);
-            dfs(neighborIdx, graph);
-        }
-        stack.push(vertexIdx);
+        answer.add(graph.getVertex(vert));
     }
 }

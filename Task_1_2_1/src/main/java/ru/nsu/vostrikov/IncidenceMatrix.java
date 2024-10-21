@@ -1,139 +1,143 @@
 package ru.nsu.vostrikov;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.ArrayList;
 
+/**
+ * Матрица инцидентности.
+ */
 public class IncidenceMatrix<T> implements Graph<T> {
 
-    private ArrayList<ArrayList<Integer>> incMat;
-    private HashMap<Integer, T> vertexValues;
-    private HashMap<T, Integer> vertexToIndex;
+    private List<Edge<T>> edges;
+    private List<Vertex<T>> vertices;
+    private List<List<Integer>> incMat;
     private int edgeCount = 0;
-    private int nextIdx = 0;
+    private int nextId = 0;
 
+    /**
+     * Конструктор.
+     */
     public IncidenceMatrix() {
+        edges = new ArrayList<>();
+        vertices = new ArrayList<>();
         incMat = new ArrayList<>();
-        vertexValues = new HashMap<>();
-        vertexToIndex = new HashMap<>();
     }
 
+    /**
+     * Добавление вершины.
+     */
     @Override
-    public void addVertex(T vertex) {
-        vertexValues.put(nextIdx, vertex);
-        vertexToIndex.put(vertex, nextIdx);
+    public void addVertex(Vertex<T> vertex) {
+        if (vertices.contains(vertex)) {
+            return;
+        }
         ArrayList<Integer> init = new ArrayList<>();
         for (int i = 0; i < edgeCount; i++) {
             init.add(0);
         }
         incMat.add(init);
-        nextIdx++;
+        vertices.add(vertex);
+        nextId++;
     }
 
+    /**
+     * Удаление вершины.
+     */
     @Override
-    public void deleteVertex(T vertex) throws IndexOutOfBoundsException {
-        if (!vertexToIndex.containsKey(vertex)) {
-            throw new IndexOutOfBoundsException("Invalid vertex");
-        }
-
-        int vertexIndex = vertexToIndex.get(vertex);
-        vertexValues.remove(vertexIndex);
-        vertexToIndex.remove(vertex);
-
-        for (int i = 0; i < edgeCount; i++) {
-            if (incMat.get(vertexIndex).get(i) != 0) {
-                for (ArrayList<Integer> row : incMat) {
-                    row.remove(i);
-                }
-                edgeCount--;
-                i--;
+    public void deleteVertex(Vertex<T> vertex) {
+        int idx = vertices.indexOf(vertex);
+        List<Integer> incidentEdges = incMat.get(idx);
+        for (int edgeIdx = 0; edgeIdx < incidentEdges.size(); edgeIdx++) {
+            if (incidentEdges.get(edgeIdx) != 0) {
+                deleteEdge(edges.get(edgeIdx));
             }
         }
 
-        incMat.remove(vertexIndex);
+        vertices.remove(idx);
+        incMat.remove(idx);
 
-        for (Map.Entry<T, Integer> entry : vertexToIndex.entrySet()) {
-            if (entry.getValue() > vertexIndex) {
-                vertexToIndex.put(entry.getKey(), entry.getValue() - 1);
-            }
-        }
     }
 
+    /**
+     * Добавление ребра.
+     */
     @Override
-    public void addEdge(T from, T to) throws IndexOutOfBoundsException {
-        if (!vertexToIndex.containsKey(from) || !vertexToIndex.containsKey(to)) {
-            throw new IndexOutOfBoundsException("Invalid vertex");
+    public void addEdge(Edge<T> edge) {
+        Vertex<T> from = edge.getFrom();
+        Vertex<T> to = edge.getTo();
+        if (vertices.contains(from) && vertices.contains(to)) {
+            edges.add(edge);
         }
-
-        for (ArrayList<Integer> row : incMat) {
+        for (List<Integer> row : incMat) {
             row.add(0);
         }
-
-        incMat.get(vertexToIndex.get(from)).set(edgeCount, 1);
-        incMat.get(vertexToIndex.get(to)).set(edgeCount, -1);
+        incMat.get(getVertexIdx(from)).set(edgeCount, 1);
+        incMat.get(getVertexIdx(to)).set(edgeCount, -1);
         edgeCount++;
     }
 
+    /**
+     * Удаление ребра.
+     */
     @Override
-    public void deleteEdge(T from, T to) throws IndexOutOfBoundsException {
-        if (!vertexToIndex.containsKey(from) || !vertexToIndex.containsKey(to)) {
-            throw new IndexOutOfBoundsException("Invalid vertex");
+    public void deleteEdge(Edge<T> edge) {
+        int edgeIdx = edges.indexOf(edge);
+        if (edgeIdx == -1) {
+            throw new IndexOutOfBoundsException("Edge not found");
         }
-
-        int fromIdx = vertexToIndex.get(from);
-        int toIdx = vertexToIndex.get(to);
-
-        for (int i = 0; i < edgeCount; i++) {
-            if (incMat.get(fromIdx).get(i) == 1 && incMat.get(toIdx).get(i) == -1) {
-                for (ArrayList<Integer> row : incMat) {
-                    row.remove(i);
-                }
-                edgeCount--;
-                break;
-            }
+        edges.remove(edgeIdx);
+        for (List<Integer> row : incMat) {
+            row.remove(edgeIdx);
         }
+        edgeCount--;
     }
 
+    /**
+     * Соседи вершины.
+     */
     @Override
-    public List<T> getNeighbors(T vertex) throws IndexOutOfBoundsException {
-        List<T> neighbors = new ArrayList<>();
-        if (!vertexToIndex.containsKey(vertex)) {
-            throw new IndexOutOfBoundsException("Invalid vertex");
-        }
-
-        int vertexIndex = vertexToIndex.get(vertex);
-
-        for (int i = 0; i < edgeCount; i++) {
-            if (incMat.get(vertexIndex).get(i) == 1) {
-                for (int j = 0; j < incMat.size(); j++) {
-                    if (incMat.get(j).get(i) == -1) {
-                        neighbors.add(vertexValues.get(j));
-                        break;
-                    }
-                }
+    public List<Vertex<T>> getNeighbors(Vertex<T> vertex) {
+        int idx = getVertexIdx(vertex);
+        List<Vertex<T>> neighbors = new ArrayList<>();
+        List<Integer> incidentEdges = incMat.get(idx);
+        for (int edgeIdx = 0; edgeIdx < incidentEdges.size(); edgeIdx++) {
+            if (incidentEdges.get(edgeIdx) == 1) {
+                Edge<T> edge = edges.get(edgeIdx);
+                neighbors.add(edge.getTo());
             }
         }
         return neighbors;
     }
 
+    /**
+     * Индекс вершины.
+     */
     @Override
-    public int getVertexIdx(T vertex) throws IndexOutOfBoundsException {
-        if (!vertexToIndex.containsKey(vertex)) {
-            throw new IndexOutOfBoundsException("No such vertex");
+    public int getVertexIdx(Vertex<T> vertex) throws IndexOutOfBoundsException {
+        int idx = vertices.indexOf(vertex);
+        if (idx == -1){
+            throw new IndexOutOfBoundsException("Vertex not found");
         }
-        return vertexToIndex.get(vertex);
+        return idx;
     }
 
+    /**
+     * Количество вершин.
+     */
     @Override
     public int getVertexCnt() {
-        return vertexValues.size();
+        return vertices.size();
     }
 
+    /**
+     * Вершина по индексу.
+     */
     @Override
-    public T getVertex(int vertexIdx) {
-        return vertexValues.get(vertexIdx);
+    public Vertex<T> getVertex(int vertexIdx) throws IndexOutOfBoundsException {
+        Vertex<T> vertex = vertices.get(vertexIdx);
+        if (vertex == null) {
+            throw new IndexOutOfBoundsException("Vertex not found");
+        }
+        return vertex;
     }
 }
-

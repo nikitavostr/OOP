@@ -1,21 +1,75 @@
 package ru.nsu.vostrikov;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Scanner;
 
+/**
+ * Интерфейс графа.
+ */
 interface Graph<T> {
-    void addVertex(T vertex);
+    void addVertex(Vertex<T> vertex);
 
-    void deleteVertex(T vertex) throws IndexOutOfBoundsException;
+    void deleteVertex(Vertex<T> vertex) throws IndexOutOfBoundsException;
 
-    void addEdge(T from, T to) throws IndexOutOfBoundsException;
+    void addEdge(Edge<T> edge) throws IndexOutOfBoundsException;
 
-    void deleteEdge(T from, T to) throws IndexOutOfBoundsException;
+    void deleteEdge(Edge<T> edge) throws IndexOutOfBoundsException;
 
-    List<T> getNeighbors(T vertex) throws IndexOutOfBoundsException;
+    List<Vertex<T>> getNeighbors(Vertex<T> vertex) throws IndexOutOfBoundsException;
 
-    int getVertexIdx(T vertex) throws IndexOutOfBoundsException;
+    int getVertexIdx(Vertex<T> vertex) throws IndexOutOfBoundsException;
 
     int getVertexCnt();
 
-    T getVertex(int vertexIdx);
+    Vertex<T> getVertex(int vertexIdx);
+
+    /**
+     * Чтение файла.
+     */
+    default void readFile(String fileName, String typeCheck) throws FileNotFoundException {
+        File file = new File(fileName);
+        try (Scanner scanner = new Scanner(file)){
+            String line;
+            int num = 0;
+            boolean readingVertices = true;
+            boolean readingInt = true;
+            if (typeCheck.equals("string")) {
+                readingInt = false;
+            }
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                if (line.equals("Vertices")) {
+                    continue;
+                }
+                else if (line.equals("Edges")) {
+                    readingVertices = false;
+                    continue;
+                }
+                else {
+                    if (readingVertices) {
+                        try {
+                            num = Integer.parseInt(line);
+                            readingInt = true;
+                        } catch (NumberFormatException e) {
+                            readingInt = false;
+                        }
+                        if (readingInt) {
+                            addVertex(new Vertex<T>((T) Integer.valueOf(line)));
+                        }
+                        else {
+                            addVertex(new Vertex<T>((T) (line)));
+                        }
+                    }
+                    else {
+                        String[] arr = line.split(" ");
+                        Vertex<T> v1 = getVertex(Integer.parseInt(arr[0]));
+                        Vertex<T> v2 = getVertex(Integer.parseInt(arr[1]));
+                        addEdge(new Edge<>(v1, v2));
+                    }
+                }
+            }
+        }
+    }
 }

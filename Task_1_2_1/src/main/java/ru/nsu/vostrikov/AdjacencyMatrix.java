@@ -1,99 +1,92 @@
 package ru.nsu.vostrikov;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
-public class AdjacencyMatrix<T> implements Graph<T> {
+/**
+ * Матрица смежности.
+ */
+public class AdjacencyMatrix<T> implements Graph<T>{
 
     private final ArrayList<ArrayList<Integer>> adjMat;
-    private final HashMap<T, Integer> vertexToIndex;
-    private final List<T> vertices;
-    private int nextIdx = 0;
+    private final List<Vertex<T>> vertices;
+    private int nextId;
 
+    /**
+     * Конструктор.
+     */
     public AdjacencyMatrix() {
         adjMat = new ArrayList<>();
-        vertexToIndex = new HashMap<>();
         vertices = new ArrayList<>();
+        nextId = 0;
     }
 
+    /**
+     * Добавление вершины
+     */
     @Override
-    public void addVertex(T vertex) {
-        if (vertexToIndex.containsKey(vertex)) {
+    public void addVertex(Vertex<T> vertex) {
+        if (vertices.contains(vertex)) {
             return;
         }
-
-        vertexToIndex.put(vertex, nextIdx);
         vertices.add(vertex);
-        int newIndex = adjMat.size();
-
         for (ArrayList<Integer> row : adjMat) {
             row.add(0);
         }
-
         ArrayList<Integer> newRow = new ArrayList<>();
-        for (int i = 0; i <= newIndex; i++) {
+        for (int i = 0; i <= nextId; i++) {
             newRow.add(0);
         }
         adjMat.add(newRow);
-
-        nextIdx++;
+        nextId++;
     }
 
+    /**
+     * Удаление вершины
+     */
     @Override
-    public void deleteVertex(T vertex) throws IndexOutOfBoundsException{
-        Integer vertexIndex = vertexToIndex.get(vertex);
-        if (vertexIndex == null) {
-            throw new IndexOutOfBoundsException("Invalid vertex");
-        }
-
+    public void deleteVertex(Vertex<T> vertex) {
+        int vertexIndex = getVertexIdx(vertex);
         vertices.remove(vertex);
-        adjMat.remove((int) vertexIndex);
+        adjMat.remove(vertexIndex);
 
         for (ArrayList<Integer> row : adjMat) {
-            row.remove((int) vertexIndex);
+            row.remove(vertexIndex);
         }
-
-        vertexToIndex.remove(vertex);
-        for (Map.Entry<T, Integer> entry : vertexToIndex.entrySet()) {
-            if (entry.getValue() > vertexIndex) {
-                vertexToIndex.put(entry.getKey(), entry.getValue() - 1);
-            }
-        }
-
-        nextIdx--;
+        nextId--;
     }
 
+    /**
+     * Добавление ребра.
+     */
     @Override
-    public void addEdge(T from, T to) throws IndexOutOfBoundsException{
-        Integer fromIndex = vertexToIndex.get(from);
-        Integer toIndex = vertexToIndex.get(to);
-        if (fromIndex == null || toIndex == null) {
-            throw new IndexOutOfBoundsException("Invalid vertex");
-        }
+    public void addEdge(Edge<T> edge) {
+        Vertex<T> from = edge.getFrom();
+        Vertex<T> to = edge.getTo();
+        int fromIndex = getVertexIdx(from);
+        int toIndex = getVertexIdx(to);
         adjMat.get(fromIndex).set(toIndex, 1);
     }
 
+    /**
+     * Удаление ребра.
+     */
     @Override
-    public void deleteEdge(T from, T to) throws IndexOutOfBoundsException {
-        Integer fromIndex = vertexToIndex.get(from);
-        Integer toIndex = vertexToIndex.get(to);
-        if (fromIndex == null || toIndex == null) {
-            throw new IndexOutOfBoundsException("Invalid vertex");
-        }
+    public void deleteEdge(Edge<T> edge) {
+        Vertex<T> from = edge.getFrom();
+        Vertex<T> to = edge.getTo();
+        int fromIndex = getVertexIdx(from);
+        int toIndex = getVertexIdx(to);
         adjMat.get(fromIndex).set(toIndex, 0);
     }
 
+    /**
+     * Соседи вершины.
+     */
     @Override
-    public List<T> getNeighbors(T vertex) throws IndexOutOfBoundsException {
-        Integer vertexIndex = vertexToIndex.get(vertex);
-        if (vertexIndex == null) {
-            throw new IndexOutOfBoundsException("Invalid vertex");
-        }
-
-        List<T> neighbors = new ArrayList<>();
+    public List<Vertex<T>> getNeighbors(Vertex<T> vertex) {
+        int vertexIndex = getVertexIdx(vertex);
+        List<Vertex<T>> neighbors = new ArrayList<>();
         for (int i = 0; i < adjMat.size(); i++) {
             if (adjMat.get(vertexIndex).get(i) != 0) {
                 neighbors.add(vertices.get(i));
@@ -102,23 +95,31 @@ public class AdjacencyMatrix<T> implements Graph<T> {
         return neighbors;
     }
 
+    /**
+     * Индекс вершины.
+     */
     @Override
-    public int getVertexIdx(T vertex) throws IndexOutOfBoundsException {
-        Integer index = vertexToIndex.get(vertex);
-        if (index == null) {
+    public int getVertexIdx(Vertex<T> vertex) throws IndexOutOfBoundsException {
+        int index = vertices.indexOf(vertex);
+        if (index == -1) {
             throw new IndexOutOfBoundsException("No such vertex");
         }
         return index;
     }
 
+    /**
+     * Количество вершин.
+     */
     @Override
     public int getVertexCnt() {
         return vertices.size();
     }
 
+    /**
+     * Вершина по индексу.
+     */
     @Override
-    public T getVertex(int vertexIdx) {
-        return vertices.get(vertexIdx);
+    public Vertex<T> getVertex(int vertexId) {
+        return vertices.get(vertexId);
     }
 }
-
