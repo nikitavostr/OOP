@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"ru.nsu.vostrikov","l":"AdjacencyList"},{"p":"ru.nsu.vostrikov","l":"AdjacencyMatrix"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.vostrikov","l":"Edge"},{"p":"ru.nsu.vostrikov","l":"IncidenceMatrix"},{"p":"ru.nsu.vostrikov","l":"Main"},{"p":"ru.nsu.vostrikov","l":"Toposort"},{"p":"ru.nsu.vostrikov","l":"Vertex"}]
