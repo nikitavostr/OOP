@@ -56,8 +56,7 @@ interface Graph<T> {
                         } else {
                             addVertex(new Vertex<T>((T) (line)));
                         }
-                    }
-                    else {
+                    } else {
                         String[] arr = line.split(" ");
                         Vertex<T> v1 = getVertices().get(Integer.parseInt(arr[0]));
                         Vertex<T> v2 = getVertices().get(Integer.parseInt(arr[1]));

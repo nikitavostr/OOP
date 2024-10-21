@@ -113,7 +113,7 @@ public class IncidenceMatrix<T> implements Graph<T> {
      */
     public int getVertexIdx(Vertex<T> vertex) throws IndexOutOfBoundsException {
         int idx = vertices.indexOf(vertex);
-        if (idx == -1){
+        if (idx == -1) {
             throw new IndexOutOfBoundsException("Vertex not found");
         }
         return idx;
