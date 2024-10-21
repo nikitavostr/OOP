@@ -23,6 +23,7 @@ class ToposortTest {
         assertEquals("C", list.get(2).getValue());
         assertEquals("D", list.get(3).getValue());
     }
+
     static class TestArgumentsProvider implements ArgumentsProvider {
         @Override
         public Stream<? extends Arguments> provideArguments(ExtensionContext context) {

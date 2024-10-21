@@ -28,7 +28,7 @@ interface Graph<T> {
      */
     default void readFile(String fileName, String typeCheck) throws FileNotFoundException {
         File file = new File(fileName);
-        try (Scanner scanner = new Scanner(file)){
+        try (Scanner scanner = new Scanner(file)) {
             String line;
             int num = 0;
             boolean readingVertices = true;
@@ -40,12 +40,10 @@ interface Graph<T> {
                 line = scanner.nextLine();
                 if (line.equals("Vertices")) {
                     continue;
-                }
-                else if (line.equals("Edges")) {
+                } else if (line.equals("Edges")) {
                     readingVertices = false;
                     continue;
-                }
-                else {
+                } else {
                     if (readingVertices) {
                         try {
                             num = Integer.parseInt(line);
@@ -55,8 +53,7 @@ interface Graph<T> {
                         }
                         if (readingInt) {
                             addVertex(new Vertex<T>((T) Integer.valueOf(line)));
-                        }
-                        else {
+                        } else {
                             addVertex(new Vertex<T>((T) (line)));
                         }
                     }

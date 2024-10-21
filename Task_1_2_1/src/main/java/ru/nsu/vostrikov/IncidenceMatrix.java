@@ -55,7 +55,6 @@ public class IncidenceMatrix<T> implements Graph<T> {
 
         vertices.remove(idx);
         incMat.remove(idx);
-
     }
 
     /**

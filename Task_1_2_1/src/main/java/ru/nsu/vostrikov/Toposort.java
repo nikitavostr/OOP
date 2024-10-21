@@ -32,11 +32,13 @@ public class Toposort<T> {
     /**
      * Обход в глубину.
      */
-    private static <T> void dfs(int vert, Graph<T> graph, boolean[] visited, List<Vertex<T>> answer) {
+    private static <T> void dfs(int vert, Graph<T> graph,
+                                boolean[] visited,
+                                List<Vertex<T>> answer) {
         visited[vert] = true;
         int cnt = graph.getNeighbors(graph.getVertices().get(vert)).size();
         Vertex<T> vertex;
-        for(int i = 0; i < cnt; ++i) {
+        for (int i = 0; i < cnt; ++i) {
             vertex = graph.getNeighbors(graph.getVertices().get(vert)).get(i);
             int to = graph.getVertices().indexOf(vertex);
             if (!visited[to]) {
