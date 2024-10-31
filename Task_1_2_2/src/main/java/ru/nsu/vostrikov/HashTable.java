@@ -1,12 +1,11 @@
 package ru.nsu.vostrikov;
 
 import java.lang.Iterable;
-
 import java.util.AbstractMap;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -225,7 +224,9 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
             @Override
             public Map.Entry<K, V> next() {
                 checkModificationException();
-                if (!hasNext()) throw new NoSuchElementException();
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 Entry<K, V> entry = bucketIterator.next();
                 return new AbstractMap.SimpleEntry<>(entry.key, entry.value);
             }
