@@ -1,5 +1,7 @@
 package ru.nsu.vostrikov;
 
+import java.lang.Iterable;
+
 import java.util.AbstractMap;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -9,12 +11,18 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class HashTable<K, V> {
+/**
+ * HashTable class.
+ */
+public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
     private List<Entry<K, V>>[] table;
     private int size;
     private int modCount;
     private int capacity;
 
+    /**
+     * constructor.
+     */
     public HashTable() {
         capacity = 8;
         size = 0;
@@ -25,6 +33,9 @@ public class HashTable<K, V> {
         }
     }
 
+    /**
+     * Element of HashTable.
+     */
     private static class Entry<K, V> {
         final K key;
         V value;
@@ -35,10 +46,16 @@ public class HashTable<K, V> {
         }
     }
 
+    /**
+     * Calculate hash.
+     */
     private int hash(K key) {
         return Math.abs(key.hashCode() % capacity);
     }
 
+    /**
+     * Put element.
+     */
     public void put(K key, V value) {
         int index = hash(key);
         for (Entry<K, V> entry : table[index]) {
@@ -56,6 +73,9 @@ public class HashTable<K, V> {
         }
     }
 
+    /**
+     * Get element.
+     */
     public V get(K key) {
         int index = hash(key);
         for (Entry<K, V> entry : table[index]) {
@@ -66,6 +86,9 @@ public class HashTable<K, V> {
         return null;
     }
 
+    /**
+     * Remove element.
+     */
     public V remove(K key) {
         int index = hash(key);
         Iterator<Entry<K, V>> iterator = table[index].iterator();
@@ -81,18 +104,30 @@ public class HashTable<K, V> {
         return null;
     }
 
+    /**
+     * Contains key or not.
+     */
     public boolean containsKey(K key) {
         return get(key) != null;
     }
 
+    /**
+     * Update value.
+     */
     public void update(K key, V value) {
         put(key, value);
     }
 
+    /**
+     * size of HashTable.
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * Resize.
+     */
     private void resize() {
         capacity *= 2;
         List<Entry<K, V>>[] newTable = new List[capacity];
@@ -109,6 +144,9 @@ public class HashTable<K, V> {
         table = newTable;
     }
 
+    /**
+     * To string.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -120,6 +158,23 @@ public class HashTable<K, V> {
         return "{" + sb.toString().replaceAll(", $", "") + "}";
     }
 
+    /**
+     * HashCode.
+     */
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        for (List<Entry<K, V>> bucket : table) {
+            for (Entry<K, V> entry : bucket) {
+                hash += Objects.hash(entry.key, entry.value);
+            }
+        }
+        return hash;
+    }
+
+    /**
+     * equals.
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof HashTable)) {
@@ -140,12 +195,18 @@ public class HashTable<K, V> {
         return true;
     }
 
+    /**
+     * Iterator.
+     */
     public Iterator<Map.Entry<K, V>> iterator() {
         return new Iterator<Map.Entry<K, V>>() {
             private final int expectedModCount = modCount;
             private int bucketIndex = 0;
             private Iterator<Entry<K, V>> bucketIterator = table[bucketIndex].iterator();
 
+            /**
+             * Has Next or not.
+             */
             @Override
             public boolean hasNext() {
                 checkModificationException();
@@ -158,6 +219,9 @@ public class HashTable<K, V> {
                 return bucketIndex < capacity && bucketIterator.hasNext();
             }
 
+            /**
+             * Next element.
+             */
             @Override
             public Map.Entry<K, V> next() {
                 checkModificationException();
@@ -166,6 +230,9 @@ public class HashTable<K, V> {
                 return new AbstractMap.SimpleEntry<>(entry.key, entry.value);
             }
 
+            /**
+             * Check modifications.
+             */
             private void checkModificationException() {
                 if (modCount != expectedModCount) {
                     throw new ConcurrentModificationException();

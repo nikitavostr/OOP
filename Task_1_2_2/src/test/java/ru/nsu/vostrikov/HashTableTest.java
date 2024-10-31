@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ConcurrentModificationException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
@@ -99,15 +100,19 @@ class HashTableTest {
     }
 
     @Test
-    void testIterator() {
+    void testIteratorWithForEach() {
+        HashTable<String, Integer> hashTable = new HashTable<>();
         hashTable.put("one", 1);
         hashTable.put("two", 2);
-        Iterator<Map.Entry<String, Integer>> iterator = hashTable.iterator();
-        assertTrue(iterator.hasNext());
-        iterator.next();
-        assertTrue(iterator.hasNext());
-        iterator.next();
-        assertFalse(iterator.hasNext());
+        Map<String, Integer> expectedEntries = new HashMap<>();
+        expectedEntries.put("one", 1);
+        expectedEntries.put("two", 2);
+        for (Map.Entry<String, Integer> entry : hashTable) {
+            assertTrue(expectedEntries.containsKey(entry.getKey()));
+            assertEquals(expectedEntries.get(entry.getKey()), entry.getValue());
+            expectedEntries.remove(entry.getKey());
+        }
+        assertTrue(expectedEntries.isEmpty());
     }
 
     @Test
