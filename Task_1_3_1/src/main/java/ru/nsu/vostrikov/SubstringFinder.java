@@ -2,12 +2,18 @@ package ru.nsu.vostrikov;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * substring finder class.
+ */
 public class SubstringFinder {
+    /**
+     * find substring function.
+     */
     public static List<Long> findSubstring(InputStream input, String substring) throws IOException {
         List<Long> indices = new ArrayList<>();
         int substringLength = substring.length();

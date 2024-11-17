@@ -7,8 +7,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -65,7 +65,7 @@ public class SubstringFinderTest {
 
     @Test
     void testLargeFileSubstringSearch() throws IOException {
-        long fileSize = 1024L * 1024L * 1024L;
+        long fileSize = 18L * 1024L * 1024L * 1024L;
         long writtenBytes = 0;
         File largeFile = File.createTempFile("largeFile", "txt");
 
@@ -78,7 +78,7 @@ public class SubstringFinderTest {
             writtenBytes += 4;
         }
         List<Long> result = SubstringFinder.findSubstring(new FileInputStream(largeFile), "qwer");
-        assertEquals(List.of(1024L * 1024L * 1024L - 4L), result);
+        assertEquals(List.of(18L * 1024L * 1024L * 1024L - 4L), result);
         assertEquals(fileSize, writtenBytes);
         if (largeFile.exists()) {
             assertTrue(largeFile.delete());
