@@ -12,6 +12,9 @@ import java.io.InputStream;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
+/**
+ * substring finder test.
+ */
 public class SubstringFinderTest {
     @Test
     void testEmptyFile() throws IOException {
