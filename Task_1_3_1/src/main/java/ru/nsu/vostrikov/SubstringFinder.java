@@ -1,18 +1,18 @@
 package ru.nsu.vostrikov;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubstringFinder {
-    public static List<Integer> findSubstring(String fileName, String substring) throws IOException {
-        List<Integer> indices = new ArrayList<>();
+    public static List<Long> findSubstring(InputStream input, String substring) throws IOException {
+        List<Long> indices = new ArrayList<>();
         int substringLength = substring.length();
-        int currentIndex = 0;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        long currentIndex = 0;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
             char[] buffer = new char[substringLength];
             int charsRead = reader.read(buffer, 0, substringLength);
             if (charsRead < substringLength) {
