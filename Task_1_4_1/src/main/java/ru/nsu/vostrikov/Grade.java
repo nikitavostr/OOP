@@ -1,5 +1,7 @@
 package ru.nsu.vostrikov;
 
+import static ru.nsu.vostrikov.GradeConstansts.*;
+
 /**
  * Grade class.
  */
@@ -43,9 +45,9 @@ public class Grade {
      * Check validity of grade.
      */
     private void checkGrade(WorkType type, int value) {
-        if (type == WorkType.PASS && value != 1) {
+        if (type == WorkType.PASS && value != PASS) {
             throw new IllegalArgumentException("Зачет может быть только 'Зачет'");
-        } else if (type != WorkType.PASS && (value < 3 || value > 5)) {
+        } else if (type != WorkType.PASS && (value < SATISFACTORY || value > EXCELLENT)) {
             throw new IllegalArgumentException("Оценка может быть либо 3, либо 4, либо 5");
         }
     }

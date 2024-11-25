@@ -20,12 +20,16 @@ class GradeTest {
 
     @Test
     void testInvalidGradeValueBelowRange() {
-        assertThrows(IllegalArgumentException.class, () -> new Grade("Math", WorkType.ASSIGNMENT, 0));
+        assertThrows(IllegalArgumentException.class, () -> new Grade(
+                "Math", WorkType.ASSIGNMENT, 0)
+        );
     }
 
     @Test
     void testInvalidGradeValueAboveRange() {
-        assertThrows(IllegalArgumentException.class, () -> new Grade("Math", WorkType.EXAM, 6));
+        assertThrows(IllegalArgumentException.class, () -> new Grade(
+                "Math", WorkType.EXAM, 6)
+        );
     }
 
     @Test
@@ -36,6 +40,8 @@ class GradeTest {
 
     @Test
     void testInvalidPassGrade() {
-        assertThrows(IllegalArgumentException.class, () -> new Grade("English", WorkType.PASS, 5));
+        assertThrows(IllegalArgumentException.class, () -> new Grade(
+                "English", WorkType.PASS, 5)
+        );
     }
 }

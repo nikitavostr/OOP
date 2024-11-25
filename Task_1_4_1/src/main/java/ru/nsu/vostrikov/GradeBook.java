@@ -1,5 +1,7 @@
 package ru.nsu.vostrikov;
 
+import static ru.nsu.vostrikov.GradeConstansts.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,14 +14,16 @@ public class GradeBook {
     private final String studentName;
     private final boolean isPaidEducation;
     private final List<Semester> semesters;
+    private final long countLatestGrades;
 
     /**
      * Constructor.
      */
-    public GradeBook(String studentName, boolean isPaidEducation) {
+    public GradeBook(String studentName, boolean isPaidEducation, long countLatestGrades) {
         this.studentName = studentName;
         this.isPaidEducation = isPaidEducation;
         this.semesters = new ArrayList<>();
+        this.countLatestGrades = countLatestGrades;
     }
 
     /**
@@ -29,8 +33,11 @@ public class GradeBook {
         if (semesters.size() >= 8) {
             throw new IllegalStateException("Нельзя добавить более 8 семестров.");
         }
-        if (semesters.stream().anyMatch(s -> s.getSemesterNumber() == semester.getSemesterNumber())) {
-            throw new IllegalArgumentException("Семестр с номером " + semester.getSemesterNumber() + " уже существует.");
+        if (semesters.stream().anyMatch(
+                s -> s.getSemesterNumber() == semester.getSemesterNumber())) {
+            throw new IllegalArgumentException(
+                    "Семестр с номером " + semester.getSemesterNumber() + " уже существует."
+            );
         }
         if (semesters.size() + 1 != semester.getSemesterNumber()) {
             throw new IllegalArgumentException("Нельзя пропустить семестр");
@@ -44,7 +51,9 @@ public class GradeBook {
     public double calculateAverageGrade() {
         return semesters.stream()
                 .flatMap(semester -> semester.getGrades().stream())
-                .filter(grade -> grade.getType() == WorkType.EXAM || grade.getType() == WorkType.DIFF_PASS)
+                .filter(
+                        grade -> grade.getType() == WorkType.EXAM || grade.getType() == WorkType.DIFF_PASS
+                )
                 .mapToInt(Grade::getValue)
                 .average()
                 .orElse(0.0);
@@ -54,13 +63,17 @@ public class GradeBook {
      * Check ability to transfer to budget.
      */
     public boolean canTransferToBudget() {
-        if (!isPaidEducation || semesters.size() < 2) return false;
+        if (!isPaidEducation || semesters.size() < 2) {
+            return false;
+        }
 
-        List<Semester> lastTwoSemesters = semesters.subList(Math.max(0, semesters.size() - 2), semesters.size());
+        List<Semester> lastTwoSemesters = semesters.subList(
+                Math.max(0, semesters.size() - 2), semesters.size()
+        );
         return lastTwoSemesters.stream()
                 .flatMap(semester -> semester.getGrades().stream())
                 .filter(grade -> grade.getType() == WorkType.EXAM)
-                .noneMatch(grade -> grade.getValue() == 3);
+                .noneMatch(grade -> grade.getValue() == SATISFACTORY);
     }
 
     /**
@@ -69,31 +82,34 @@ public class GradeBook {
     public boolean canGetRedDiploma() {
         Map<String, Grade> latestGrades = semesters.stream()
                 .flatMap(semester -> semester.getGrades().stream())
-                .filter(grade -> grade.getType() == WorkType.EXAM || grade.getType() == WorkType.DIFF_PASS)
+                .filter(
+                        grade -> grade.getType() == WorkType.EXAM || grade.getType() == WorkType.DIFF_PASS
+                )
                 .collect(Collectors.toMap(
                         Grade::getSubject,
                         grade -> grade,
                         (existing, replacement) -> replacement
                 ));
 
-        long excellentGradesCount = latestGrades.values().stream()
-                .filter(grade -> grade.getValue() == 5)
+        long goodGradesCount = latestGrades.values().stream()
+                .filter(grade -> grade.getValue() == GOOD)
                 .count();
 
         boolean hasSatisfactoryGrades = latestGrades.values().stream()
-                .anyMatch(grade -> grade.getValue() == 3);
+                .anyMatch(grade -> grade.getValue() == SATISFACTORY);
 
         boolean atLeast75PercentExcellent = !latestGrades.isEmpty() &&
-                excellentGradesCount >= latestGrades.size() * 0.75;
+                countLatestGrades * 0.25 >= goodGradesCount;
 
         boolean qualificationWorkExcellent = semesters.stream()
                 .flatMap(semester -> semester.getGrades().stream())
                 .filter(grade -> grade.getType() == WorkType.VKR_DEFENSE)
-                .allMatch(grade -> grade.getValue() == 5);
+                .anyMatch(grade -> grade.getValue() == EXCELLENT);
 
         boolean notAllSemesters = semesters.size() < 8;
 
-        return !hasSatisfactoryGrades && atLeast75PercentExcellent && (qualificationWorkExcellent || notAllSemesters);
+        return !hasSatisfactoryGrades && atLeast75PercentExcellent &&
+                (qualificationWorkExcellent || notAllSemesters);
     }
 
     /**
@@ -104,14 +120,9 @@ public class GradeBook {
 
         Semester currentSemester = semesters.get(semesters.size() - 1);
         return currentSemester.getGrades().stream()
-                .filter(grade -> grade.getType() == WorkType.EXAM || grade.getType() == WorkType.DIFF_PASS)
-                .allMatch(grade -> grade.getValue() == 5);
-    }
-
-    /**
-     * Get semesters.
-     */
-    public List<Semester> getSemesters() {
-        return semesters;
+                .filter(
+                        grade -> grade.getType() == WorkType.EXAM || grade.getType() == WorkType.DIFF_PASS
+                )
+                .allMatch(grade -> grade.getValue() == EXCELLENT);
     }
 }
