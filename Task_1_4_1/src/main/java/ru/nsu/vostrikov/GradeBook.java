@@ -1,7 +1,5 @@
 package ru.nsu.vostrikov;
 
-import static ru.nsu.vostrikov.GradeConstansts.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +50,8 @@ public class GradeBook {
         return semesters.stream()
                 .flatMap(semester -> semester.getGrades().stream())
                 .filter(
-                        grade -> grade.getType() == WorkType.EXAM || grade.getType() == WorkType.DIFF_PASS
+                        grade -> grade.getType() == WorkType.EXAM
+                                || grade.getType() == WorkType.DIFF_PASS
                 )
                 .mapToInt(Grade::getValue)
                 .average()
@@ -73,7 +72,7 @@ public class GradeBook {
         return lastTwoSemesters.stream()
                 .flatMap(semester -> semester.getGrades().stream())
                 .filter(grade -> grade.getType() == WorkType.EXAM)
-                .noneMatch(grade -> grade.getValue() == SATISFACTORY);
+                .noneMatch(grade -> grade.getValue() == GradeConstansts.SATISFACTORY);
     }
 
     /**
@@ -83,7 +82,8 @@ public class GradeBook {
         Map<String, Grade> latestGrades = semesters.stream()
                 .flatMap(semester -> semester.getGrades().stream())
                 .filter(
-                        grade -> grade.getType() == WorkType.EXAM || grade.getType() == WorkType.DIFF_PASS
+                        grade -> grade.getType() == WorkType.EXAM
+                                || grade.getType() == WorkType.DIFF_PASS
                 )
                 .collect(Collectors.toMap(
                         Grade::getSubject,
@@ -92,37 +92,46 @@ public class GradeBook {
                 ));
 
         long goodGradesCount = latestGrades.values().stream()
-                .filter(grade -> grade.getValue() == GOOD)
+                .filter(grade -> grade.getValue() == GradeConstansts.GOOD)
                 .count();
 
         boolean hasSatisfactoryGrades = latestGrades.values().stream()
-                .anyMatch(grade -> grade.getValue() == SATISFACTORY);
+                .anyMatch(
+                        grade -> grade.getValue() == GradeConstansts.SATISFACTORY
+                );
 
-        boolean atLeast75PercentExcellent = !latestGrades.isEmpty() &&
-                countLatestGrades * 0.25 >= goodGradesCount;
+        boolean atLeast75PercentExcellent = !latestGrades.isEmpty()
+                && countLatestGrades * 0.25 >= goodGradesCount;
 
         boolean qualificationWorkExcellent = semesters.stream()
                 .flatMap(semester -> semester.getGrades().stream())
                 .filter(grade -> grade.getType() == WorkType.VKR_DEFENSE)
-                .anyMatch(grade -> grade.getValue() == EXCELLENT);
+                .anyMatch(
+                        grade -> grade.getValue() == GradeConstansts.EXCELLENT
+                );
 
         boolean notAllSemesters = semesters.size() < 8;
 
-        return !hasSatisfactoryGrades && atLeast75PercentExcellent &&
-                (qualificationWorkExcellent || notAllSemesters);
+        return !hasSatisfactoryGrades && atLeast75PercentExcellent
+                && (qualificationWorkExcellent || notAllSemesters);
     }
 
     /**
      * check ability to get increased scholarship.
      */
     public boolean canGetIncreasedScholarship() {
-        if (semesters.isEmpty()) return false;
+        if (semesters.isEmpty()) {
+            return false;
+        }
 
         Semester currentSemester = semesters.get(semesters.size() - 1);
         return currentSemester.getGrades().stream()
                 .filter(
-                        grade -> grade.getType() == WorkType.EXAM || grade.getType() == WorkType.DIFF_PASS
+                        grade -> grade.getType() == WorkType.EXAM
+                                || grade.getType() == WorkType.DIFF_PASS
                 )
-                .allMatch(grade -> grade.getValue() == EXCELLENT);
+                .allMatch(
+                        grade -> grade.getValue() == GradeConstansts.EXCELLENT
+                );
     }
 }

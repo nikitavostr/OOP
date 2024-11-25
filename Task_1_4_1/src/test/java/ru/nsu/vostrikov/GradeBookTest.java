@@ -47,7 +47,7 @@ class GradeBookTest {
         semester1.addGrade(new Grade("Discrete Math", WorkType.DIFF_PASS, 4));
         GradeBook gradeBook = new GradeBook("Nikita Vostrikov", false, 12);
         gradeBook.addSemester(semester1);
-        assertTrue(gradeBook.canGetRedDiploma());// все еще можно получить
+        assertTrue(gradeBook.canGetRedDiploma()); // все еще можно получить
 
         Semester semester2 = new Semester(2);
         semester2.addGrade(new Grade("Declarative Programming", WorkType.EXAM, 3));
