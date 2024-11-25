@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.vostrikov","l":"Grade"},{"p":"ru.nsu.vostrikov","l":"GradeBook"},{"p":"ru.nsu.vostrikov","l":"Semester"},{"p":"ru.nsu.vostrikov","l":"WorkType"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.vostrikov","l":"Grade"},{"p":"ru.nsu.vostrikov","l":"GradeBook"},{"p":"ru.nsu.vostrikov","l":"GradeConstansts"},{"p":"ru.nsu.vostrikov","l":"Semester"},{"p":"ru.nsu.vostrikov","l":"WorkType"}]
