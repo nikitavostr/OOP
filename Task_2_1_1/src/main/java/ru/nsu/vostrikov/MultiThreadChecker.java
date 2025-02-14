@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Multi Thread class checker.
+ */
 public class MultiThreadChecker implements NumberChecker {
     private final int threadCount;
 

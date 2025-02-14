@@ -2,6 +2,9 @@ package ru.nsu.vostrikov;
 
 import java.util.Arrays;
 
+/**
+ * Parallel checker.
+ */
 public class ParallelChecker implements NumberChecker {
     @Override
     public boolean hasComposite(int[] numbers) {
