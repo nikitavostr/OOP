@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.vostrikov","l":"MultiThreadChecker"},{"p":"ru.nsu.vostrikov","l":"NumberChecker"},{"p":"ru.nsu.vostrikov","l":"ParallelChecker"},{"p":"ru.nsu.vostrikov","l":"SimpleChecker"}];updateSearchResults();
