@@ -1,14 +1,11 @@
+/*
 package ru.nsu.vostrikov;
 
 import java.util.Arrays;
 
-/**
- * Main class.
- */
+
 public class Main {
-    /**
-     * main func.
-     */
+
     public static void main(String[] args) {
         int[] testData = new int[5_000_000];
         Arrays.fill(testData, 10000079);
@@ -36,3 +33,4 @@ public class Main {
         System.out.println("ParallelStream: " + (end - start) / 1e9 + " s");
     }
 }
+*/
