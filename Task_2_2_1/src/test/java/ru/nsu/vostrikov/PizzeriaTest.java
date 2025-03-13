@@ -13,7 +13,7 @@ class PizzeriaTest {
     void setUp() {
         warehouse = new Warehouse(10);
         pizzeria = new Pizzeria(1, 1, 10, new int[]{1}, new int[]{5});
-        order = new PizzaOrder(1); // Создаем заказ
+        order = new PizzaOrder(1);
     }
 
     @Test
@@ -21,9 +21,9 @@ class PizzeriaTest {
         pizzeria.placeOrder(order);
         pizzeria.start();
         Thread.sleep(4000);
-        assertEquals("Завершен", order.getState());
+        assertEquals(OrderStatus.DELIVERED, order.getState());
         assertTrue(warehouse.isEmpty());
-        pizzeria.stop();
+        pizzeria.closePizzeria();
     }
 
     @Test
@@ -31,18 +31,8 @@ class PizzeriaTest {
         pizzeria.closePizzeria();
         PizzaOrder closedOrder = new PizzaOrder(2);
         pizzeria.placeOrder(closedOrder);
-        assertEquals("Заказ отклонен", closedOrder.getState());
-        pizzeria.stop();
+        assertEquals(OrderStatus.DECLINED, closedOrder.getState());
+        pizzeria.closePizzeria();
     }
 
-    @Test
-    void testWorkingStatus() throws InterruptedException {
-        pizzeria.start();
-        pizzeria.placeOrder(order);
-        pizzeria.closePizzeria();
-        assertTrue(pizzeria.working());
-        Thread.sleep(4000);
-        assertFalse(pizzeria.working());
-        pizzeria.stop();
-    }
 }

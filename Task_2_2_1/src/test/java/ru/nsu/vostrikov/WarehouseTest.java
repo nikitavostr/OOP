@@ -2,7 +2,6 @@ package ru.nsu.vostrikov;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.concurrent.TimeUnit;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;

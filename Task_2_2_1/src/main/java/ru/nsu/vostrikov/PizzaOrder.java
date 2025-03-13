@@ -1,23 +1,38 @@
 package ru.nsu.vostrikov;
 
+/**
+ * Order class.
+ */
 class PizzaOrder {
     private final int id;
-    private String state;
+    private OrderStatus state;
 
+    /**
+     * Constructor.
+     */
     public PizzaOrder(int id) {
         this.id = id;
-        this.state = "Создан";
+        this.state = OrderStatus.CREATED;
     }
 
+    /**
+     * Get id.
+     */
     public int getId() {
         return id;
     }
 
-    public String getState() {
+    /**
+     * Get state.
+     */
+    public OrderStatus getState() {
         return state;
     }
 
-    public void setState(String state) {
+    /**
+     * Set state.
+     */
+    public void setState(OrderStatus state) {
         this.state = state;
     }
 

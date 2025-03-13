@@ -1,21 +1,24 @@
 package ru.nsu.vostrikov;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
+/**
+ * Pizzeria class.
+ */
 public class Pizzeria {
     private final Warehouse warehouse;
-    private final Queue<PizzaOrder> orderQueue = new LinkedList<>();
+    private final OrderQueue orderQueue;
     private final Bakery[] bakers;
     private final Courier[] couriers;
     private boolean open = true;
-    private int activeOrders = 0;
 
+    /**
+     * Constructor.
+     */
     public Pizzeria(int n, int m, int t, int[] bakerSpeeds, int[] courierCapacities) {
         this.warehouse = new Warehouse(t);
         this.bakers = new Bakery[n];
+        this.orderQueue = new OrderQueue();
         for (int i = 0; i < n; i++) {
-            bakers[i] = new Bakery(i, bakerSpeeds[i], this, warehouse);
+            bakers[i] = new Bakery(i, bakerSpeeds[i], warehouse, orderQueue);
         }
         this.couriers = new Courier[m];
         for (int i = 0; i < m; i++) {
@@ -23,6 +26,9 @@ public class Pizzeria {
         }
     }
 
+    /**
+     * Start function.
+     */
     public void start() {
         for (Bakery bakery : bakers) {
             bakery.start();
@@ -32,40 +38,44 @@ public class Pizzeria {
         }
     }
 
+    /**
+     * Place order.
+     */
     public void placeOrder(PizzaOrder order) {
         if (!open) {
-            order.setState("Заказ отклонен");
+            order.setState(OrderStatus.DECLINED);
             System.out.println(order);
             return;
         }
-        System.out.println(order);
-        orderQueue.add(order);
-        synchronized (this) {
-            activeOrders++;
-            notifyAll();
-        }
+        orderQueue.addOrder(order);
     }
 
-    public synchronized PizzaOrder getOrder() throws InterruptedException {
-        while (orderQueue.isEmpty()) {
-            wait();
-        }
-        return orderQueue.poll();
-    }
-
+    /**
+     * Order delivered.
+     */
     public synchronized void orderDelivered(PizzaOrder order) {
-        order.setState("Завершен");
+        order.setState(OrderStatus.DELIVERED);
         System.out.println(order);
-        activeOrders--;
+        orderQueue.activeOrders--;
     }
 
+    /**
+     * Working or not.
+     */
     public synchronized boolean working() {
         synchronized (warehouse) {
-            return open || activeOrders != 0;
+            return open || orderQueue.activeOrders != 0;
         }
     }
 
-    public void stop() {
+    /**
+     * Close pizzeria.
+     */
+    public void closePizzeria() throws InterruptedException {
+        open = false;
+        while (working()) {
+            Thread.sleep(500);
+        }
         for (Bakery bakery : bakers) {
             bakery.interrupt();
         }
@@ -74,7 +84,4 @@ public class Pizzeria {
         }
     }
 
-    public void closePizzeria() {
-        open = false;
-    }
 }

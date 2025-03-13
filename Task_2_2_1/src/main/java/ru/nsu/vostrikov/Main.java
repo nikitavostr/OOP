@@ -1,27 +1,44 @@
 package ru.nsu.vostrikov;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.io.InputStream;
+
+/**
+ * Main class.
+ */
 public class Main {
-    public static void main(String[] args) throws InterruptedException{
-        int workTime = 20;
-        int bakerySpeeds [] = {3, 2, 3};
-        int courierCap [] = {4, 2, 3};
-        Pizzeria pizzeria = new Pizzeria(3, 3, 10, bakerySpeeds, courierCap);
+
+    /**
+     * Main function.
+     */
+    public static void main(String[] args) throws InterruptedException, IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("config.json");
+        if (inputStream == null) {
+            throw new IOException("file not found");
+        }
+        PizzeriaConfig config = objectMapper.readValue(inputStream, PizzeriaConfig.class);
+
+        Pizzeria pizzeria = new Pizzeria(
+                config.getBakers(),
+                config.getCouriers(),
+                config.getStorageSize(),
+                config.getBakerySpeeds(),
+                config.getCourierCap()
+        );
+
         pizzeria.start();
         long startTime = System.currentTimeMillis();
         int id = 1;
-        while (System.currentTimeMillis() - startTime < workTime * 1000L) {
+        while (System.currentTimeMillis() - startTime < config.getWorkTime() * 1000L) {
             pizzeria.placeOrder(new PizzaOrder(id));
             id++;
             Thread.sleep(500);
         }
+
         pizzeria.closePizzeria();
-        System.out.println("Запривачено");
-        while(pizzeria.working()) {
-            Thread.sleep(500);
-        }
-        pizzeria.stop();
-        System.out.println("закрыто");
+
+        System.out.println("All orders are completed");
     }
 }
