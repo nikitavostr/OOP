@@ -45,4 +45,11 @@ public class Warehouse {
         notifyAll();
         return takenOrders;
     }
+
+    /**
+     * Is empty or not.
+     */
+    public synchronized boolean isEmpty() {
+        return orders.isEmpty();
+    }
 }
