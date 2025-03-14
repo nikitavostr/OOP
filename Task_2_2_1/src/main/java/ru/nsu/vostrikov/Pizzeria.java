@@ -9,6 +9,7 @@ public class Pizzeria {
     private final Bakery[] bakers;
     private final Courier[] couriers;
     private boolean open = true;
+    private int activeOrders = 0;
 
     /**
      * Constructor.
@@ -41,13 +42,16 @@ public class Pizzeria {
     /**
      * Place order.
      */
-    public void placeOrder(PizzaOrder order) {
+    public synchronized void placeOrder(PizzaOrder order) {
         if (!open) {
             order.setState(OrderStatus.DECLINED);
             System.out.println(order);
             return;
         }
-        orderQueue.addOrder(order);
+        synchronized (this) {
+            orderQueue.addOrder(order);
+            activeOrders++;
+        }
     }
 
     /**
@@ -56,16 +60,14 @@ public class Pizzeria {
     public synchronized void orderDelivered(PizzaOrder order) {
         order.setState(OrderStatus.DELIVERED);
         System.out.println(order);
-        orderQueue.activeOrders--;
+        activeOrders--;
     }
 
     /**
      * Working or not.
      */
     public synchronized boolean working() {
-        synchronized (warehouse) {
-            return open || orderQueue.activeOrders != 0;
-        }
+        return open || activeOrders != 0;
     }
 
     /**
@@ -83,5 +85,4 @@ public class Pizzeria {
             courier.interrupt();
         }
     }
-
 }

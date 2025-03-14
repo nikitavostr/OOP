@@ -8,7 +8,6 @@ import java.util.Queue;
  */
 public class OrderQueue {
     private final Queue<PizzaOrder> orderQueue = new LinkedList<>();
-    public int activeOrders = 0;
 
     /**
      * Add order function.
@@ -16,7 +15,6 @@ public class OrderQueue {
     public synchronized void addOrder(PizzaOrder order) {
         System.out.println(order);
         orderQueue.add(order);
-        activeOrders++;
         notifyAll();
     }
 
@@ -30,3 +28,4 @@ public class OrderQueue {
         return orderQueue.poll();
     }
 }
+
