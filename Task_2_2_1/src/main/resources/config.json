@@ -1,0 +1,8 @@
+{
+  "bakers": 3,
+  "couriers": 3,
+  "storageSize": 10,
+  "workTime": 10,
+  "bakerySpeeds": [3, 2, 3],
+  "courierCap": [4, 2, 3]
+}
