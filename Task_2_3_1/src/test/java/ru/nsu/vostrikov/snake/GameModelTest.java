@@ -1,9 +1,12 @@
 package ru.nsu.vostrikov.snake;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +41,6 @@ class GameModelTest {
 
     @Test
     void testSnakeEatsFood() {
-        // Помещаем еду перед змеёй
         gameModel.getFood().clear();
         gameModel.getFood().add(new FoodModel(gameModel.getSnake().getHead().getRow(),
                 gameModel.getSnake().getHead().getCol() + 1));
@@ -59,4 +61,20 @@ class GameModelTest {
         assertTrue(gameModel.isLost());
     }
 
+    @Test
+    void testFoodDoesNotSpawnInsideSnake() {
+        Set<Position> snakeBody = new HashSet<>(gameModel.getSnake().getBody());
+        for (FoodModel food : gameModel.getFood()) {
+            assertFalse(snakeBody.contains(new Position(food.getRow(), food.getCol())));
+        }
+    }
+
+    @Test
+    void testSnakeCannotReverse() {
+        gameModel.setDirection(Direction.RIGHT);
+        gameModel.movement();
+        gameModel.setDirection(Direction.LEFT);
+        gameModel.movement();
+        assertEquals(Direction.RIGHT, gameModel.getDirection());
+    }
 }
