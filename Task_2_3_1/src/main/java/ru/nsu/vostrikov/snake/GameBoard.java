@@ -37,6 +37,7 @@ public class GameBoard {
      * Is within bounds?
      */
     public boolean isWithinBounds(Position pos) {
-        return pos.getRow() >= 0 && pos.getRow() < height && pos.getCol() >= 0 && pos.getCol() < width;
+        return pos.getRow() >= 0 && pos.getRow() < height &&
+                pos.getCol() >= 0 && pos.getCol() < width;
     }
 }

@@ -18,11 +18,14 @@ public class GameModel {
     private int eatenFood;
     private Random random = new Random();
 
+    /**
+     * Constructor.
+     */
     public GameModel(int row, int col, int foodCount) {
         this.foodCount = foodCount;
         board = new GameBoard(row, col);
-        snake = new SnakeModel(new Position(row/2, col/2), direction);
-        for(int i = 0; i < foodCount; ++i) {
+        snake = new SnakeModel(new Position(row / 2, col / 2), direction);
+        for (int i = 0; i < foodCount; ++i) {
             generateFood();
         }
     }

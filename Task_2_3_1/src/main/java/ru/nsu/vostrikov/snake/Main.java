@@ -4,12 +4,17 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import java.net.URL;
 import javafx.stage.Stage;
 
-import java.net.URL;
-
+/**
+ * Main class.
+ */
 public class Main extends Application {
 
+    /**
+     * Start.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         URL fxmlUrl = getClass().getResource("/game_view.fxml");

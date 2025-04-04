@@ -6,9 +6,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-
 import java.util.List;
+import javafx.scene.paint.Color;
 
 /**
  * Controller class for the Snake Game.
@@ -20,19 +19,25 @@ public class GameController {
     private AnimationTimer timer;
     //private long lastUpdateTime;
     private final long updateInterval = 200_000_000;
-    private final int CELL_SIZE = 20;
+    private final int cellSize = 20;
 
+    /**
+     * Init.
+     */
     @FXML
     public void initialize() {
         gc = gameCanvas.getGraphicsContext2D();
         gameCanvas.setFocusTraversable(true);
         gameCanvas.setOnKeyPressed(this::setupHandlers);
-        int width = (int) (gameCanvas.getWidth() / CELL_SIZE);
-        int height = (int) (gameCanvas.getHeight() / CELL_SIZE);
+        int width = (int) (gameCanvas.getWidth() / cellSize);
+        int height = (int) (gameCanvas.getHeight() / cellSize);
         gameModel = new GameModel(width, height, 5);
         setupTimer();
     }
 
+    /**
+     * Setup.
+     */
     private void setupTimer() {
         timer = new AnimationTimer() {
             private long lastUpdateTime = 0;
@@ -57,11 +62,9 @@ public class GameController {
         timer.start();
     }
 
-    public void startGame() {
-
-        setupTimer();
-    }
-
+    /**
+     * Setup Handlers.
+     */
     @FXML
     public void setupHandlers(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
@@ -81,12 +84,15 @@ public class GameController {
         }
     }
 
+    /**
+     * Render.
+     */
     private void render() {
         gc.clearRect(0, 0, gameCanvas.getWidth(), gameCanvas.getHeight());
 
         gc.setFill(Color.RED);
         for (FoodModel food : gameModel.getFood()) {
-            gc.fillRect(food.getCol() * CELL_SIZE, food.getRow() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+            gc.fillRect(food.getCol() * cellSize, food.getRow() * cellSize, cellSize, cellSize);
         }
 
         List<Position> body = gameModel.getSnake().getBody();
@@ -97,13 +103,16 @@ public class GameController {
             } else {
                 gc.setFill(Color.GREEN);
             }
-            gc.fillRect(pos.getCol() * CELL_SIZE, pos.getRow() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+            gc.fillRect(pos.getCol() * cellSize, pos.getRow() * cellSize, cellSize, cellSize);
         }
 
         gc.setFill(Color.BLACK);
         gc.fillText("Съедено яблок: " + gameModel.getEatenFood(), 10, 15);
     }
 
+    /**
+     * Restart.
+     */
     private void restartGame() {
         if (timer != null) {
             timer.stop();
