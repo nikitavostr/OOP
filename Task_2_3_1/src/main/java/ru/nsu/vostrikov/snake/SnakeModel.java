@@ -11,6 +11,9 @@ public class SnakeModel {
     private Direction direction;
     private Position previous;
 
+    /**
+     * Constructor.
+     */
     public SnakeModel(Position startPosition, Direction startDirection) {
         body = new ArrayList<>();
         body.add(startPosition);

@@ -1,12 +1,12 @@
 package ru.nsu.vostrikov.snake;
 
+import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import java.util.List;
 import javafx.scene.paint.Color;
 
 /**
