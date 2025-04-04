@@ -1,8 +1,11 @@
-package ru.nsu.vostrikov;
+package ru.nsu.vostrikov.snake;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Snake class.
+ */
 public class SnakeModel {
     private List<Position> body;
     private Direction direction;
@@ -14,22 +17,37 @@ public class SnakeModel {
         direction = startDirection;
     }
 
+    /**
+     * Get body.
+     */
     public List<Position> getBody() {
         return body;
     }
 
+    /**
+     * Get length.
+     */
     public int getLength() {
         return body.size();
     }
 
+    /**
+     * Get head.
+     */
     public Position getHead() {
         return body.getFirst();
     }
 
+    /**
+     * Update direction.
+     */
     public void updateDirection(Direction d) {
         direction = d;
     }
 
+    /**
+     * Move.
+     */
     public void move() {
         Position head = body.get(0);
         Position newHead = switch (direction) {
@@ -42,10 +60,16 @@ public class SnakeModel {
         previous = body.removeLast();
     }
 
+    /**
+     * Grow.
+     */
     public void grow() {
         body.addLast(previous);
     }
 
+    /**
+     * Check collision.
+     */
     public boolean checkCollision(GameBoard board) {
         Position head = body.getFirst();
         if (!board.isWithinBounds(head)) {

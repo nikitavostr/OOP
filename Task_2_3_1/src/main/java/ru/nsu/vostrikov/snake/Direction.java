@@ -1,8 +1,14 @@
-package ru.nsu.vostrikov;
+package ru.nsu.vostrikov.snake;
 
+/**
+ * Direction.
+ */
 public enum Direction {
     UP, DOWN, LEFT, RIGHT;
 
+    /**
+     * Check illegal direction.
+     */
     public Direction opposite() {
         switch (this) {
             case UP: return DOWN;

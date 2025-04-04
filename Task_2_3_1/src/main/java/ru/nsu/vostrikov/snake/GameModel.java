@@ -1,9 +1,12 @@
-package ru.nsu.vostrikov;
+package ru.nsu.vostrikov.snake;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Game model class.
+ */
 public class GameModel {
     private SnakeModel snake;
     private GameBoard board;
@@ -12,6 +15,7 @@ public class GameModel {
     private boolean won = false;
     private boolean lost = false;
     private int foodCount;
+    private int eatenFood;
     private Random random = new Random();
 
     public GameModel(int row, int col, int foodCount) {
@@ -23,6 +27,9 @@ public class GameModel {
         }
     }
 
+    /**
+     * Generate food.
+     */
     private void generateFood() {
         FoodModel newFood = null;
         do {
@@ -33,17 +40,24 @@ public class GameModel {
         food.add(newFood);
     }
 
+    /**
+     * Eat food.
+     */
     private boolean eat(Position head) {
         for (int i = 0; i < food.size(); ++i) {
             if (food.get(i).equals(head)) {
                 food.remove(i);
                 generateFood();
+                eatenFood++;
                 return true;
             }
         }
         return false;
     }
 
+    /**
+     * Movement.
+     */
     public void movement() {
         snake.move();
         Position head = snake.getHead();
@@ -62,10 +76,16 @@ public class GameModel {
         }
     }
 
+    /**
+     * Get direction.
+     */
     public Direction getDirection() {
         return direction;
     }
 
+    /**
+     * Set direction.
+     */
     public void setDirection(Direction newDirection) {
         if (newDirection != direction.opposite()) {
             direction = newDirection;
@@ -73,18 +93,37 @@ public class GameModel {
         }
     }
 
+    /**
+     * Get food.
+     */
     public List<FoodModel> getFood() {
         return food;
     }
 
+    /**
+     * Get snake.
+     */
     public SnakeModel getSnake() {
         return snake;
     }
 
+    /**
+     * Get eaten food.
+     */
+    public int getEatenFood() {
+        return eatenFood;
+    }
+
+    /**
+     * Is lost.
+     */
     public boolean isLost() {
         return lost;
     }
 
+    /**
+     * Is won.
+     */
     public boolean isWon() {
         return won;
     }
