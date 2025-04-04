@@ -1,6 +1,5 @@
 package ru.nsu.vostrikov.snake;
 
-import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -9,7 +8,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 /**
@@ -21,6 +19,7 @@ public class GameController {
     private GraphicsContext gc;
     private GameModel gameModel;
     private AnimationTimer timer;
+    private View view;
     private final long updateInterval = 200_000_000;
     private final int cellSize = 20;
     private IntegerProperty elapsedTime = new SimpleIntegerProperty(0);
@@ -37,6 +36,7 @@ public class GameController {
         int width = (int) (gameCanvas.getWidth() / cellSize);
         int height = (int) (gameCanvas.getHeight() / cellSize);
         gameModel = new GameModel(width, height, 5);
+        view = new View(gc, gameCanvas, gameModel, cellSize);
         setupTimer();
     }
 
@@ -51,7 +51,7 @@ public class GameController {
             public void handle(long now) {
                 if (now - lastUpdateTime >= updateInterval) {
                     gameModel.movement();
-                    render();
+                    view.render();
                     elapsedTime.set((int) ((now - startTime) / 1_000_000_000));
                     lastUpdateTime = now;
 
@@ -88,29 +88,6 @@ public class GameController {
             gameModel.setDirection(Direction.LEFT);
         } else if (code == KeyCode.RIGHT && gameModel.getDirection() != Direction.LEFT) {
             gameModel.setDirection(Direction.RIGHT);
-        }
-    }
-
-    /**
-     * Render.
-     */
-    private void render() {
-        gc.clearRect(0, 0, gameCanvas.getWidth(), gameCanvas.getHeight());
-
-        gc.setFill(Color.RED);
-        for (FoodModel food : gameModel.getFood()) {
-            gc.fillRect(food.getCol() * cellSize, food.getRow() * cellSize, cellSize, cellSize);
-        }
-
-        List<Position> body = gameModel.getSnake().getBody();
-        for (int i = 0; i < body.size(); i++) {
-            Position pos = body.get(i);
-            if (i == 0) {
-                gc.setFill(Color.DARKGREEN);
-            } else {
-                gc.setFill(Color.GREEN);
-            }
-            gc.fillRect(pos.getCol() * cellSize, pos.getRow() * cellSize, cellSize, cellSize);
         }
     }
 
