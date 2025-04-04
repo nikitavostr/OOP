@@ -35,7 +35,7 @@ public class SnakeModel {
      * Get head.
      */
     public Position getHead() {
-        return body.getFirst();
+        return body.get(0);
     }
 
     /**
@@ -56,22 +56,22 @@ public class SnakeModel {
             case LEFT -> new Position(head.getRow(), head.getCol() - 1);
             case RIGHT -> new Position(head.getRow(), head.getCol() + 1);
         };
-        body.addFirst(newHead);
-        previous = body.removeLast();
+        body.add(0, newHead);
+        previous = body.remove(body.size() - 1);
     }
 
     /**
      * Grow.
      */
     public void grow() {
-        body.addLast(previous);
+        body.add(body.size(), previous);
     }
 
     /**
      * Check collision.
      */
     public boolean checkCollision(GameBoard board) {
-        Position head = body.getFirst();
+        Position head = body.get(0);
         if (!board.isWithinBounds(head)) {
             return true;
         }

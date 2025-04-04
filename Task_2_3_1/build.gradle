@@ -5,7 +5,7 @@ plugins {
     id 'application'
 }
 
-group = 'ru.nsu.vostrikov'
+group = 'ru.nsu.vostrikov.snake'
 version = '1.0-SNAPSHOT'
 
 repositories {
