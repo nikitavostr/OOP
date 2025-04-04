@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.vostrikov.snake.GameController">
+
+    <top>
+        <VBox spacing="5" alignment="CENTER">
+            <Text fx:id="time" text="Время: 0 сек" />
+        </VBox>
+    </top>
+    <center>
+        <Canvas fx:id="gameCanvas" height="300" onKeyPressed="#setupHandlers" width="300" />
+    </center>
+
+</BorderPane>
