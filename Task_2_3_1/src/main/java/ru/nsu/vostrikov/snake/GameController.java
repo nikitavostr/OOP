@@ -2,24 +2,28 @@ package ru.nsu.vostrikov.snake;
 
 import java.util.List;
 import javafx.animation.AnimationTimer;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 /**
  * Controller class for the Snake Game.
  */
 public class GameController {
     @FXML private Canvas gameCanvas;
+    @FXML private Text time;
     private GraphicsContext gc;
     private GameModel gameModel;
     private AnimationTimer timer;
-    //private long lastUpdateTime;
     private final long updateInterval = 200_000_000;
     private final int cellSize = 20;
+    private IntegerProperty elapsedTime = new SimpleIntegerProperty(0);
 
     /**
      * Init.
@@ -29,6 +33,7 @@ public class GameController {
         gc = gameCanvas.getGraphicsContext2D();
         gameCanvas.setFocusTraversable(true);
         gameCanvas.setOnKeyPressed(this::setupHandlers);
+        time.textProperty().bind(elapsedTime.asString("Время: %d сек"));
         int width = (int) (gameCanvas.getWidth() / cellSize);
         int height = (int) (gameCanvas.getHeight() / cellSize);
         gameModel = new GameModel(width, height, 5);
@@ -40,12 +45,14 @@ public class GameController {
      */
     private void setupTimer() {
         timer = new AnimationTimer() {
+            private long startTime = System.nanoTime();
             private long lastUpdateTime = 0;
             @Override
             public void handle(long now) {
                 if (now - lastUpdateTime >= updateInterval) {
                     gameModel.movement();
                     render();
+                    elapsedTime.set((int) ((now - startTime) / 1_000_000_000));
                     lastUpdateTime = now;
 
                     if (gameModel.isLost() || gameModel.isWon()) {
@@ -105,9 +112,6 @@ public class GameController {
             }
             gc.fillRect(pos.getCol() * cellSize, pos.getRow() * cellSize, cellSize, cellSize);
         }
-
-        gc.setFill(Color.BLACK);
-        gc.fillText("Съедено яблок: " + gameModel.getEatenFood(), 10, 15);
     }
 
     /**
