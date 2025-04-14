@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.nsu.vostrikov.GraphTest" tests="27" skipped="0" failures="0" errors="0" timestamp="2024-10-21T12:35:30" hostname="MacBook-Pro-Nikita.local" time="0.048">
+  <properties/>
+  <testcase name="[1] ru.nsu.vostrikov.AdjacencyList@615f972" classname="ru.nsu.vostrikov.GraphTest" time="0.016"/>
+  <testcase name="[2] ru.nsu.vostrikov.AdjacencyMatrix@2fb68ec6" classname="ru.nsu.vostrikov.GraphTest" time="0.001"/>
+  <testcase name="[3] ru.nsu.vostrikov.IncidenceMatrix@d71adc2" classname="ru.nsu.vostrikov.GraphTest" time="0.001"/>
+  <testcase name="[1] ru.nsu.vostrikov.AdjacencyList@1c65121" classname="ru.nsu.vostrikov.GraphTest" time="0.001"/>
+  <testcase name="[2] ru.nsu.vostrikov.AdjacencyMatrix@59221b97" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[3] ru.nsu.vostrikov.IncidenceMatrix@6ac4944a" classname="ru.nsu.vostrikov.GraphTest" time="0.001"/>
+  <testcase name="[1] ru.nsu.vostrikov.AdjacencyList@5a772895" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[2] ru.nsu.vostrikov.AdjacencyMatrix@3ee39da0" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[3] ru.nsu.vostrikov.IncidenceMatrix@5d332969" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[1] ru.nsu.vostrikov.AdjacencyList@7cc9ce8" classname="ru.nsu.vostrikov.GraphTest" time="0.003"/>
+  <testcase name="[2] ru.nsu.vostrikov.AdjacencyMatrix@6979efad" classname="ru.nsu.vostrikov.GraphTest" time="0.001"/>
+  <testcase name="[3] ru.nsu.vostrikov.IncidenceMatrix@315ba14a" classname="ru.nsu.vostrikov.GraphTest" time="0.001"/>
+  <testcase name="[1] ru.nsu.vostrikov.AdjacencyList@54e81b21" classname="ru.nsu.vostrikov.GraphTest" time="0.001"/>
+  <testcase name="[2] ru.nsu.vostrikov.AdjacencyMatrix@44ea608c" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[3] ru.nsu.vostrikov.IncidenceMatrix@50cf5a23" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[1] ru.nsu.vostrikov.AdjacencyList@450794b4" classname="ru.nsu.vostrikov.GraphTest" time="0.001"/>
+  <testcase name="[2] ru.nsu.vostrikov.AdjacencyMatrix@20765ed5" classname="ru.nsu.vostrikov.GraphTest" time="0.001"/>
+  <testcase name="[3] ru.nsu.vostrikov.IncidenceMatrix@3b582111" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[1] ru.nsu.vostrikov.AdjacencyList@2899a8db" classname="ru.nsu.vostrikov.GraphTest" time="0.001"/>
+  <testcase name="[2] ru.nsu.vostrikov.AdjacencyMatrix@76b0ae1b" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[3] ru.nsu.vostrikov.IncidenceMatrix@130a0f66" classname="ru.nsu.vostrikov.GraphTest" time="0.001"/>
+  <testcase name="[1] ru.nsu.vostrikov.AdjacencyList@4c432866" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[2] ru.nsu.vostrikov.AdjacencyMatrix@2237bada" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[3] ru.nsu.vostrikov.IncidenceMatrix@77e2a6e2" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[1] ru.nsu.vostrikov.AdjacencyList@5710768a" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[2] ru.nsu.vostrikov.AdjacencyMatrix@30272916" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <testcase name="[3] ru.nsu.vostrikov.IncidenceMatrix@5bb3d42d" classname="ru.nsu.vostrikov.GraphTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
